@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тест по занятию 1: Java</title>
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --card-bg: #ffffff;
+    --text: #2b2620;
+    --text-soft: #6b6355;
+    --accent: #c9622a;
+    --accent-dark: #a84f20;
+    --border: #e4ddcf;
+    --correct: #2f7d4f;
+    --correct-bg: #e6f4ea;
+    --wrong: #c0392b;
+    --wrong-bg: #fbe9e7;
+    --option-bg: #fbfaf7;
+    --option-hover: #f1ebdd;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: border-box;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1a17;
+      --card-bg: #26231f;
+      --text: #efe9df;
+      --text-soft: #a89f8e;
+      --accent: #e08a4f;
+      --accent-dark: #f0a06a;
+      --border: #3a3630;
+      --correct: #6fce93;
+      --correct-bg: #1f3527;
+      --wrong: #ec7a68;
+      --wrong-bg: #3a2320;
+      --option-bg: #2e2a24;
+      --option-hover: #38332b;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1a17;
+    --card-bg: #26231f;
+    --text: #efe9df;
+    --text-soft: #a89f8e;
+    --accent: #e08a4f;
+    --accent-dark: #f0a06a;
+    --border: #3a3630;
+    --correct: #6fce93;
+    --correct-bg: #1f3527;
+    --wrong: #ec7a68;
+    --wrong-bg: #3a2320;
+    --option-bg: #2e2a24;
+    --option-hover: #38332b;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+    line-height: 1.5;
+    padding: 24px 16px 64px;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  header .badge {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--correct-bg);
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: clamp(22px, 5vw, 30px);
+    margin: 0 0 8px;
+  }
+  header p {
+    color: var(--text-soft);
+    margin: 0;
+    font-size: 15px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 20px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+  .q-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .q-num {
+    font-weight: 700;
+    color: var(--accent);
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .q-text {
+    font-weight: 600;
+    font-size: 17px;
+  }
+  .q-hint {
+    font-size: 12.5px;
+    color: var(--text-soft);
+    margin: 0 0 14px 26px;
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  label.option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--option-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    font-size: 15px;
+  }
+  label.option:hover { background: var(--option-hover); }
+  label.option input { accent-color: var(--accent); width: 17px; height: 17px; flex-shrink: 0; }
+  label.option.correct-mark {
+    border-color: var(--correct);
+    background: var(--correct-bg);
+    color: var(--correct);
+  }
+  label.option.wrong-mark {
+    border-color: var(--wrong);
+    background: var(--wrong-bg);
+    color: var(--wrong);
+  }
+  .result-line {
+    font-size: 13.5px;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  .result-line.ok { color: var(--correct); }
+  .result-line.bad { color: var(--wrong); }
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  button {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    cursor: pointer;
+    transition: transform 0.1s ease, background 0.15s ease;
+  }
+  button:active { transform: scale(0.97); }
+  #submitBtn {
+    background: var(--accent);
+    color: #fff;
+  }
+  #submitBtn:hover { background: var(--accent-dark); }
+  #resetBtn {
+    background: transparent;
+    color: var(--text-soft);
+    border: 1px solid var(--border);
+    display: none;
+  }
+  #summary {
+    display: none;
+    text-align: center;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin-bottom: 18px;
+  }
+  #summary .score {
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  #summary .msg { color: var(--text-soft); font-size: 15px; }
+  footer {
+    text-align: center;
+    color: var(--text-soft);
+    font-size: 12.5px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="badge">Занятие 1 · Java</div>
+    <h1>Проверь себя</h1>
+    <p>Выбери один или несколько вариантов ответа в каждом вопросе, затем нажми «Проверить»</p>
+  </header>
+
+  <div id="summary">
+    <div class="score" id="scoreText">0 / 0</div>
+    <div class="msg" id="scoreMsg"></div>
+  </div>
+
+  <form id="quizForm"></form>
+
+  <div class="actions">
+    <button type="button" id="submitBtn">Проверить ответы</button>
+    <button type="button" id="resetBtn">Попробовать снова</button>
+  </div>
+
+  <footer>Курс «Создание игр на Java» · Тест по занятию 1</footer>
+</div>
+
+<script>
+  const questions = [
+    {
+      q: "Что такое Java?",
+      multi: false,
+      options: ["Язык разметки для сайтов", "Язык программирования", "Операционная система", "Текстовый редактор"],
+      correct: [1]
+    },
+    {
+      q: "Какие из перечисленных программ/игр написаны на Java?",
+      multi: true,
+      options: ["Minecraft", "Photoshop", "Многие Android-приложения", "Microsoft Word"],
+      correct: [0, 2]
+    },
+    {
+      q: "В какой среде разработки (IDE) мы писали программы на занятии?",
+      multi: false,
+      options: ["Microsoft Word", "IntelliJ IDEA", "Paint", "Scratch"],
+      correct: [1]
+    },
+    {
+      q: "Как называется метод, с которого начинается выполнение Java-программы?",
+      multi: false,
+      options: ["start", "main", "run", "begin"],
+      correct: [1]
+    },
+    {
+      q: "Какая команда используется, чтобы вывести текст в консоль?",
+      multi: false,
+      options: ["System.in.println()", "System.out.println()", "Console.write()", "print.System()"],
+      correct: [1]
+    },
+    {
+      q: "Какие из этих строк объявляют переменную правильно?",
+      multi: true,
+      options: ['int age = 12;', 'String name = "Соня"', "boolean isAlive = true;", "double speed = 5.5;"],
+      correct: [0, 2, 3]
+    },
+    {
+      q: "Какой тип данных используется для хранения текста (например, имени персонажа)?",
+      multi: false,
+      options: ["int", "boolean", "String", "char"],
+      correct: [2]
+    }
+  ];
+
+  const form = document.getElementById("quizForm");
+  const letters = ["А", "Б", "В", "Г"];
+
+  function render() {
+    form.innerHTML = "";
+    questions.forEach((item, qi) => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const head = document.createElement("div");
+      head.className = "q-head";
+      head.innerHTML = `<span class="q-num">${qi + 1}.</span><span class="q-text">${item.q}</span>`;
+      card.appendChild(head);
+
+      const hint = document.createElement("p");
+      hint.className = "q-hint";
+      hint.textContent = item.multi ? "Можно выбрать несколько ответов" : "Выбери один ответ";
+      card.appendChild(hint);
+
+      const opts = document.createElement("div");
+      opts.className = "options";
+
+      item.options.forEach((text, oi) => {
+        const label = document.createElement("label");
+        label.className = "option";
+        label.id = `opt-${qi}-${oi}`;
+        const input = document.createElement("input");
+        input.type = item.multi ? "checkbox" : "radio";
+        input.name = `q${qi}`;
+        input.value = oi;
+        label.appendChild(input);
+        const span = document.createElement("span");
+        span.textContent = `${letters[oi]}) ${text}`;
+        label.appendChild(span);
+        opts.appendChild(label);
+      });
+
+      card.appendChild(opts);
+
+      const resultLine = document.createElement("div");
+      resultLine.className = "result-line";
+      resultLine.id = `result-${qi}`;
+      card.appendChild(resultLine);
+
+      form.appendChild(card);
+    });
+  }
+
+  function getSelected(qi) {
+    const inputs = form.querySelectorAll(`input[name="q${qi}"]:checked`);
+    return Array.from(inputs).map(i => parseInt(i.value, 10)).sort();
+  }
+
+  function arraysEqual(a, b) {
+    if (a.length !== b.length) return false;
+    return a.every((v, i) => v === b[i]);
+  }
+
+  function checkAnswers() {
+    let score = 0;
+    questions.forEach((item, qi) => {
+      const selected = getSelected(qi);
+      const correct = [...item.correct].sort();
+      const isCorrect = arraysEqual(selected, correct);
+      if (isCorrect) score++;
+
+      item.options.forEach((_, oi) => {
+        const label = document.getElementById(`opt-${qi}-${oi}`);
+        label.classList.remove("correct-mark", "wrong-mark");
+        const isChosen = selected.includes(oi);
+        const isRightOpt = correct.includes(oi);
+        if (isRightOpt) label.classList.add("correct-mark");
+        else if (isChosen && !isRightOpt) label.classList.add("wrong-mark");
+      });
+
+      const resultLine = document.getElementById(`result-${qi}`);
+      if (selected.length === 0) {
+        resultLine.textContent = "Ответ не выбран";
+        resultLine.className = "result-line bad";
+      } else if (isCorrect) {
+        resultLine.textContent = "Верно!";
+        resultLine.className = "result-line ok";
+      } else {
+        resultLine.textContent = "Неверно";
+        resultLine.className = "result-line bad";
+      }
+
+      form.querySelectorAll(`input[name="q${qi}"]`).forEach(i => i.disabled = true);
+    });
+
+    document.getElementById("scoreText").textContent = `${score} / ${questions.length}`;
+    let msg;
+    if (score === questions.length) msg = "Отлично! Все ответы верные 🎉";
+    else if (score >= questions.length - 2) msg = "Хороший результат, почти всё верно!";
+    else msg = "Есть над чем поработать — загляни в конспект занятия";
+    document.getElementById("scoreMsg").textContent = msg;
+
+    document.getElementById("summary").style.display = "block";
+    document.getElementById("submitBtn").style.display = "none";
+    document.getElementById("resetBtn").style.display = "inline-block";
+    document.getElementById("summary").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function reset() {
+    document.getElementById("summary").style.display = "none";
+    document.getElementById("submitBtn").style.display = "inline-block";
+    document.getElementById("resetBtn").style.display = "none";
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.getElementById("submitBtn").addEventListener("click", checkAnswers);
+  document.getElementById("resetBtn").addEventListener("click", reset);
+
+  render();
+</script>
+</body>
+</html>
