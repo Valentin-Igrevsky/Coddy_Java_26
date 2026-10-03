@@ -20,7 +20,8 @@
 ## Контрольные работы и тесты
 
 - [**Тест №1** (20.09.26)](https://valentin-igrevsky.github.io/Coddy_Java_26/ControlWork/Test-1.html)
-- [**Тест №1** (27.09.26)](https://valentin-igrevsky.github.io/Coddy_Java_26/ControlWork/Test-2.html)
+- [**Тест №2** (27.09.26)](https://valentin-igrevsky.github.io/Coddy_Java_26/ControlWork/Test-2.html)
+- [**Тест №3** (04.10.26)](https://valentin-igrevsky.github.io/Coddy_Java_26/ControlWork/Test-3.html)
 
 ---
 
