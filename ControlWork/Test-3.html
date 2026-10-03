@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Тест по занятию 2: Java</title>
+<title>Тест по занятию 3: Java</title>
 <style>
   :root {
     --bg: #f4f1ea;
@@ -108,6 +108,7 @@
     font-size: 13.5px;
     overflow-x: auto;
     max-width: calc(100% - 26px);
+    white-space: pre;
   }
   .options { display: flex; flex-direction: column; gap: 8px; }
   label.option {
@@ -162,7 +163,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="badge">Занятие 2 · Java</div>
+    <div class="badge">Занятие 3 · Java</div>
     <h1>Проверь себя</h1>
     <p>Выбери один или несколько вариантов ответа в каждом вопросе, затем нажми «Проверить»</p>
   </header>
@@ -179,82 +180,82 @@
     <button type="button" id="resetBtn">Попробовать снова</button>
   </div>
 
-  <footer>Курс «Создание игр на Java» · Тест по занятию 2</footer>
+  <footer>Курс «Создание игр на Java» · Тест по занятию 3</footer>
 </div>
 
 <script>
   const questions = [
-    {
-      q: "Чему будет равно логическое выражение 5 > 3?",
-      code: null,
-      multi: false,
-      options: ["true", "false", "5", "Ошибка"],
-      correct: [0]
-    },
-    {
-      q: "Какой оператор используется для логического И (оба условия должны быть истинны)?",
-      code: null,
-      multi: false,
-      options: ["||", "&&", "!", "=="],
-      correct: [1]
-    },
-    {
-      q: "Что выведет этот код?",
-      code: "int health = 25;\nboolean isLow = health < 30;\nSystem.out.println(isLow);",
-      multi: false,
-      options: ["25", "true", "false", "isLow"],
-      correct: [1]
-    },
-    {
-      q: "Какой тип данных используется для хранения значений true и false?",
-      code: null,
-      multi: false,
-      options: ["int", "String", "boolean", "char"],
-      correct: [2]
-    },
-    {
-      q: "Что выведет этот код?",
-      code: "int score = 45;\nif (score > 50) {\n    System.out.println(\"Победа\");\n} else {\n    System.out.println(\"Поражение\");\n}",
-      multi: false,
-      options: ["Победа", "Поражение", "45", "Ничего не выведется"],
-      correct: [1]
-    },
-    {
-      q: "Что выведет этот код?",
-      code: "int age = 14;\nif (age > 16) {\n    System.out.println(\"Взрослый\");\n} else if (age > 12) {\n    System.out.println(\"Подросток\");\n} else {\n    System.out.println(\"Ребёнок\");\n}",
-      multi: false,
-      options: ["Взрослый", "Подросток", "Ребёнок", "14"],
-      correct: [1]
-    },
-    {
-      q: "Что выведет этот код?",
-      code: "int level = 2;\nswitch (level) {\n    case 1:\n        System.out.println(\"Лёгкий\");\n        break;\n    case 2:\n        System.out.println(\"Средний\");\n        break;\n    default:\n        System.out.println(\"Неизвестно\");\n}",
-      multi: false,
-      options: ["Лёгкий", "Средний", "Неизвестно", "Лёгкий и Средний"],
-      correct: [1]
-    },
-    {
-      q: "В switch из предыдущего вопроса забыли break после case 1. Что выведет код при level = 1?",
-      code: "int level = 1;\nswitch (level) {\n    case 1:\n        System.out.println(\"Лёгкий\");\n    case 2:\n        System.out.println(\"Средний\");\n        break;\n    default:\n        System.out.println(\"Неизвестно\");\n}",
-      multi: false,
-      options: ["Только \"Лёгкий\"", "Только \"Средний\"", "\"Лёгкий\" и \"Средний\" (две строки)", "Ошибка компиляции"],
-      correct: [2]
-    },
-    {
-      q: "Что выведет этот код (новый синтаксис switch со стрелкой ->)?",
-      code: "int level = 3;\nswitch (level) {\n    case 1 -> System.out.println(\"Лёгкий\");\n    case 2 -> System.out.println(\"Средний\");\n    default -> System.out.println(\"Неизвестно\");\n}",
-      multi: false,
-      options: ["Лёгкий", "Средний", "Неизвестно", "Ошибка компиляции"],
-      correct: [2]
-    },
-    {
-      q: "Что произойдёт при выполнении этого кода?",
-      code: "if (true) {\n    int x = 5;\n}\nSystem.out.println(x);",
-      multi: false,
-      options: ["Выведется 5", "Выведется true", "Ошибка компиляции — x недоступен вне блока", "Ничего не произойдёт"],
-      correct: [2]
-    }
-  ];
+  {
+    "q": "Чему будет равно логическое выражение 5 > 3?",
+    "code": null,
+    "multi": false,
+    "options": ["true", "false", "5", "Ошибка"],
+    "correct": [0]
+  },
+  {
+    "q": "Какой оператор используется для логического И (оба условия должны быть истинны)?",
+    "code": null,
+    "multi": false,
+    "options": ["||", "&&", "!", "=="],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int health = 25;\nboolean isLow = health < 30;\nSystem.out.println(isLow);",
+    "multi": false,
+    "options": ["25", "true", "false", "isLow"],
+    "correct": [1]
+  },
+  {
+    "q": "Какой тип данных используется для хранения значений true и false?",
+    "code": null,
+    "multi": false,
+    "options": ["int", "String", "boolean", "char"],
+    "correct": [2]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int score = 45;\nif (score > 50) {\n    System.out.println(\"Победа\");\n} else {\n    System.out.println(\"Поражение\");\n}",
+    "multi": false,
+    "options": ["Победа", "Поражение", "45", "Ничего не выведется"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int age = 14;\nif (age > 16) {\n    System.out.println(\"Взрослый\");\n} else if (age > 12) {\n    System.out.println(\"Подросток\");\n} else {\n    System.out.println(\"Ребёнок\");\n}",
+    "multi": false,
+    "options": ["Взрослый", "Подросток", "Ребёнок", "14"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int level = 2;\nswitch (level) {\n    case 1:\n        System.out.println(\"Лёгкий\");\n        break;\n    case 2:\n        System.out.println(\"Средний\");\n        break;\n    default:\n        System.out.println(\"Неизвестно\");\n}",
+    "multi": false,
+    "options": ["Лёгкий", "Средний", "Неизвестно", "Лёгкий и Средний"],
+    "correct": [1]
+  },
+  {
+    "q": "В switch из предыдущего вопроса забыли break после case 1. Что выведет код при level = 1?",
+    "code": "int level = 1;\nswitch (level) {\n    case 1:\n        System.out.println(\"Лёгкий\");\n    case 2:\n        System.out.println(\"Средний\");\n        break;\n    default:\n        System.out.println(\"Неизвестно\");\n}",
+    "multi": false,
+    "options": ["Только \"Лёгкий\"", "Только \"Средний\"", "\"Лёгкий\" и \"Средний\" (две строки)", "Ошибка компиляции"],
+    "correct": [2]
+  },
+  {
+    "q": "Что выведет этот код (новый синтаксис switch со стрелкой ->)?",
+    "code": "int level = 3;\nswitch (level) {\n    case 1 -> System.out.println(\"Лёгкий\");\n    case 2 -> System.out.println(\"Средний\");\n    default -> System.out.println(\"Неизвестно\");\n}",
+    "multi": false,
+    "options": ["Лёгкий", "Средний", "Неизвестно", "Ошибка компиляции"],
+    "correct": [2]
+  },
+  {
+    "q": "Что произойдёт при выполнении этого кода?",
+    "code": "if (true) {\n    int x = 5;\n}\nSystem.out.println(x);",
+    "multi": false,
+    "options": ["Выведется 5", "Выведется true", "Ошибка компиляции — x недоступен вне блока", "Ничего не произойдёт"],
+    "correct": [2]
+  }
+];
 
   const form = document.getElementById("quizForm");
   const letters = ["А", "Б", "В", "Г"];
