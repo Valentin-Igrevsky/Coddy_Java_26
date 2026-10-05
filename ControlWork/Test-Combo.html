@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Итоговый тест по занятиям 1–4: Java</title>
+<style>
+  :root {
+    --bg: #f4f1ea; --card-bg: #ffffff; --text: #2b2620; --text-soft: #6b6355;
+    --accent: #c9622a; --accent-dark: #a84f20; --border: #e4ddcf;
+    --correct: #2f7d4f; --correct-bg: #e6f4ea; --wrong: #c0392b; --wrong-bg: #fbe9e7;
+    --option-bg: #fbfaf7; --option-hover: #f1ebdd; --code-bg: #2b2620; --code-text: #f4f1ea;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: border-box;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1a17; --card-bg: #26231f; --text: #efe9df; --text-soft: #a89f8e;
+      --accent: #e08a4f; --accent-dark: #f0a06a; --border: #3a3630;
+      --correct: #6fce93; --correct-bg: #1f3527; --wrong: #ec7a68; --wrong-bg: #3a2320;
+      --option-bg: #2e2a24; --option-hover: #38332b; --code-bg: #12100e; --code-text: #efe9df;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1a17; --card-bg: #26231f; --text: #efe9df; --text-soft: #a89f8e;
+    --accent: #e08a4f; --accent-dark: #f0a06a; --border: #3a3630;
+    --correct: #6fce93; --correct-bg: #1f3527; --wrong: #ec7a68; --wrong-bg: #3a2320;
+    --option-bg: #2e2a24; --option-hover: #38332b; --code-bg: #12100e; --code-text: #efe9df;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif; line-height: 1.5; padding: 24px 16px 64px; }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 28px; }
+  .badge { display: inline-block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 4px 14px; margin-bottom: 12px; }
+  h1 { font-size: clamp(22px, 5vw, 30px); margin: 0 0 8px; }
+  header p { color: var(--text-soft); margin: 0; font-size: 15px; }
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 20px 20px 22px; margin-bottom: 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+  .q-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .q-num { font-weight: 700; color: var(--accent); font-size: 15px; flex-shrink: 0; }
+  .q-text { font-weight: 600; font-size: 17px; }
+  .q-hint { font-size: 12.5px; color: var(--text-soft); margin: 0 0 12px 26px; }
+  .q-meta { display: inline-block; font-size: 11.5px; color: var(--accent); background: var(--option-bg); border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; margin: 0 0 10px 26px; }
+  pre.code { background: var(--code-bg); color: var(--code-text); border-radius: 10px; padding: 12px 14px; margin: 0 0 14px 26px; font-family: "Consolas", "Menlo", monospace; font-size: 13.5px; overflow-x: auto; max-width: calc(100% - 26px); white-space: pre; }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  label.option { display: flex; align-items: center; gap: 10px; background: var(--option-bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease; font-size: 15px; }
+  label.option:hover { background: var(--option-hover); }
+  label.option input { accent-color: var(--accent); width: 17px; height: 17px; flex-shrink: 0; }
+  label.option code { font-family: "Consolas", "Menlo", monospace; }
+  label.option.correct-mark { border-color: var(--correct); background: var(--correct-bg); color: var(--correct); }
+  label.option.wrong-mark { border-color: var(--wrong); background: var(--wrong-bg); color: var(--wrong); }
+  .result-line { font-size: 13.5px; margin-top: 10px; font-weight: 600; }
+  .result-line.ok { color: var(--correct); }
+  .result-line.bad { color: var(--wrong); }
+  .actions { display: flex; justify-content: center; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+  button { font-family: inherit; font-size: 15px; font-weight: 700; border: none; border-radius: 999px; padding: 12px 28px; cursor: pointer; transition: transform 0.1s ease, background 0.15s ease; }
+  button:active { transform: scale(0.97); }
+  button:disabled { opacity: 0.6; cursor: default; }
+  .primary { background: var(--accent); color: #fff; }
+  .primary:hover:not(:disabled) { background: var(--accent-dark); }
+  .ghost { background: transparent; color: var(--text-soft); border: 1px solid var(--border); }
+  #startCard { max-width: 420px; margin: 0 auto 18px; text-align: center; }
+  #startCard label { display: block; text-align: left; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  #nameInput { width: 100%; font: inherit; font-size: 16px; color: var(--text); background: var(--option-bg); border: 1px solid var(--border); border-radius: 10px; padding: 11px 12px; margin-bottom: 16px; }
+  #nameInput:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  #startError { color: var(--wrong); font-size: 13.5px; font-weight: 600; margin: 12px 0 0; min-height: 1.2em; }
+  #quizArea, #summary { display: none; }
+  #summary { text-align: center; border: 1px solid var(--border); background: var(--card-bg); border-radius: 16px; padding: 24px 20px; margin-bottom: 18px; }
+  #summary .who { color: var(--text-soft); font-size: 15px; margin-bottom: 4px; }
+  #summary .score { font-size: 38px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+  #summary .msg { color: var(--text-soft); font-size: 15px; }
+  #studentLine { color: var(--text-soft); font-size: 14px; text-align: center; margin: -12px 0 18px; }
+  footer { text-align: center; color: var(--text-soft); font-size: 12.5px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="badge">Занятия 1–4 · Java</div>
+    <h1>Итоговый тест</h1>
+    <p id="subtitle">Введи имя и нажми «Сгенерировать тест» — вопросы выберутся случайно</p>
+  </header>
+
+  <!-- Стартовый экран -->
+  <div class="card" id="startCard">
+    <label for="nameInput">Имя</label>
+    <input id="nameInput" type="text" maxlength="60" autocomplete="given-name" placeholder="Например, Анна">
+    <button type="button" class="primary" id="generateBtn">Сгенерировать тест</button>
+    <p id="startError" role="alert"></p>
+  </div>
+
+  <!-- Тест -->
+  <div id="quizArea">
+    <div id="studentLine"></div>
+    <div id="summary">
+      <div class="who" id="scoreWho"></div>
+      <div class="score" id="scoreText">0 / 0</div>
+      <div class="msg" id="scoreMsg"></div>
+    </div>
+    <form id="quizForm"></form>
+    <div class="actions">
+      <button type="button" class="primary" id="submitBtn">Проверить ответы</button>
+      <button type="button" class="ghost" id="resetBtn" style="display:none">Пройти новый тест</button>
+    </div>
+  </div>
+
+  <footer>Курс «Создание игр на Java» · Итоговый тест по занятиям 1–4</footer>
+</div>
+
+<script>
+  const BANK_URL = "../TestsRedactorData/question-bank/";
+  const THEMES = [
+    { id: "theme1", title: "Занятие 1: Java — основы и переменные" },
+    { id: "theme2", title: "Занятие 2: Операции и типы данных" },
+    { id: "theme3", title: "Занятие 3: Условные операторы" },
+    { id: "theme4", title: "Занятие 4: Циклы" }
+  ];
+  const DIFFICULTIES = [["easy", "Лёгкий"], ["medium", "Средний"], ["hard", "Сложный"]];
+  const letters = ["А", "Б", "В", "Г"];
+
+  const $ = id => document.getElementById(id);
+  const form = $("quizForm");
+  let questions = [];
+  let studentName = "";
+
+  async function loadRandomQuestion(theme, diffId, diffLabel) {
+    const file = `${theme.id}-${diffId}.json`;
+    const res = await fetch(BANK_URL + file, { cache: "no-cache" });
+    if (!res.ok) throw new Error(`Не удалось загрузить ${file} (${res.status})`);
+    const pool = await res.json();
+    if (!Array.isArray(pool) || pool.length === 0) throw new Error(`Пустой банк вопросов: ${file}`);
+    const picked = pool[Math.floor(Math.random() * pool.length)];
+    return { ...picked, theme: theme.title, difficulty: diffLabel };
+  }
+
+  async function generateTest() {
+    const name = $("nameInput").value.trim();
+    $("startError").textContent = "";
+    if (!name) {
+      $("startError").textContent = "Введи имя, чтобы начать тест";
+      $("nameInput").focus();
+      return;
+    }
+    const btn = $("generateBtn");
+    btn.disabled = true;
+    btn.textContent = "Генерирую…";
+    try {
+      const jobs = [];
+      THEMES.forEach(t => DIFFICULTIES.forEach(([id, label]) => jobs.push(loadRandomQuestion(t, id, label))));
+      questions = await Promise.all(jobs);
+      studentName = name;
+      showQuiz();
+    } catch (err) {
+      $("startError").textContent = "Не получилось сгенерировать тест: " + err.message + ". Обнови страницу и попробуй ещё раз.";
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Сгенерировать тест";
+    }
+  }
+
+  function showQuiz() {
+    $("startCard").style.display = "none";
+    $("quizArea").style.display = "block";
+    $("summary").style.display = "none";
+    $("submitBtn").style.display = "inline-block";
+    $("resetBtn").style.display = "none";
+    $("subtitle").textContent = "Выбери один или несколько вариантов ответа в каждом вопросе, затем нажми «Проверить ответы»";
+    $("studentLine").textContent = "Ученик: " + studentName;
+    render();
+    window.scrollTo({ top: 0 });
+  }
+
+  function render() {
+    form.innerHTML = "";
+    questions.forEach((item, qi) => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const head = document.createElement("div");
+      head.className = "q-head";
+      head.innerHTML = `<span class="q-num">${qi + 1}.</span><span class="q-text">${item.q}</span>`;
+      card.appendChild(head);
+
+      const meta = document.createElement("div");
+      meta.className = "q-meta";
+      meta.textContent = [item.theme, item.difficulty].filter(Boolean).join(" · ");
+      card.appendChild(meta);
+
+      if (item.code) {
+        const pre = document.createElement("pre");
+        pre.className = "code";
+        pre.textContent = item.code;
+        card.appendChild(pre);
+      }
+
+      const hint = document.createElement("p");
+      hint.className = "q-hint";
+      hint.textContent = item.multi ? "Можно выбрать несколько ответов" : "Выбери один ответ";
+      card.appendChild(hint);
+
+      const opts = document.createElement("div");
+      opts.className = "options";
+      item.options.forEach((text, oi) => {
+        const label = document.createElement("label");
+        label.className = "option";
+        label.id = `opt-${qi}-${oi}`;
+        const input = document.createElement("input");
+        input.type = item.multi ? "checkbox" : "radio";
+        input.name = `q${qi}`;
+        input.value = oi;
+        label.appendChild(input);
+        const span = document.createElement("span");
+        span.innerHTML = `${letters[oi]}) <code>${text}</code>`;
+        label.appendChild(span);
+        opts.appendChild(label);
+      });
+      card.appendChild(opts);
+
+      const resultLine = document.createElement("div");
+      resultLine.className = "result-line";
+      resultLine.id = `result-${qi}`;
+      card.appendChild(resultLine);
+
+      form.appendChild(card);
+    });
+  }
+
+  function getSelected(qi) {
+    const inputs = form.querySelectorAll(`input[name="q${qi}"]:checked`);
+    return Array.from(inputs).map(i => parseInt(i.value, 10)).sort((a, b) => a - b);
+  }
+
+  function arraysEqual(a, b) {
+    return a.length === b.length && a.every((v, i) => v === b[i]);
+  }
+
+  function checkAnswers() {
+    let score = 0;
+    questions.forEach((item, qi) => {
+      const selected = getSelected(qi);
+      const correct = [...item.correct].sort((a, b) => a - b);
+      const isCorrect = arraysEqual(selected, correct);
+      if (isCorrect) score++;
+
+      item.options.forEach((_, oi) => {
+        const label = $(`opt-${qi}-${oi}`);
+        label.classList.remove("correct-mark", "wrong-mark");
+        if (correct.includes(oi)) label.classList.add("correct-mark");
+        else if (selected.includes(oi)) label.classList.add("wrong-mark");
+      });
+
+      const resultLine = $(`result-${qi}`);
+      if (selected.length === 0) {
+        resultLine.textContent = "Ответ не выбран";
+        resultLine.className = "result-line bad";
+      } else if (isCorrect) {
+        resultLine.textContent = "Верно!";
+        resultLine.className = "result-line ok";
+      } else {
+        resultLine.textContent = "Неверно";
+        resultLine.className = "result-line bad";
+      }
+      form.querySelectorAll(`input[name="q${qi}"]`).forEach(i => i.disabled = true);
+    });
+
+    $("scoreWho").textContent = studentName;
+    $("scoreText").textContent = `${score} / ${questions.length}`;
+    let msg;
+    if (score === questions.length) msg = "Отлично! Все ответы верные 🎉";
+    else if (score >= questions.length - 2) msg = "Хороший результат, почти всё верно!";
+    else msg = "Есть над чем поработать — загляни в конспект занятия";
+    $("scoreMsg").textContent = msg;
+
+    $("summary").style.display = "block";
+    $("submitBtn").style.display = "none";
+    $("resetBtn").style.display = "inline-block";
+    $("summary").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function newTest() {
+    $("quizArea").style.display = "none";
+    $("startCard").style.display = "block";
+    $("subtitle").textContent = "Введи имя и нажми «Сгенерировать тест» — вопросы выберутся случайно";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  $("generateBtn").addEventListener("click", generateTest);
+  $("nameInput").addEventListener("keydown", e => { if (e.key === "Enter") generateTest(); });
+  $("submitBtn").addEventListener("click", checkAnswers);
+  $("resetBtn").addEventListener("click", newTest);
+</script>
+</body>
+</html>

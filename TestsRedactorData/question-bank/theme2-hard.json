@@ -26,12 +26,5 @@
     "multi": false,
     "options": ["14", "20", "7", "17"],
     "correct": [0]
-  },
-  {
-    "q": "Что выведет этот код?",
-    "code": "int a = 5;\nint b = (int)(a / 2.0);\nSystem.out.println(b);",
-    "multi": false,
-    "options": ["2", "2.5", "3", "0"],
-    "correct": [0]
   }
 ]

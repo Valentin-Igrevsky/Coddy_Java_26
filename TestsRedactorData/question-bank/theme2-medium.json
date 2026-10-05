@@ -14,20 +14,6 @@
     "correct": [1]
   },
   {
-    "q": "Что происходит при явном приведении (int) 9.9?",
-    "code": null,
-    "multi": false,
-    "options": ["Число округляется до 10", "Дробная часть отбрасывается, получается 9", "Программа выдаёт ошибку", "Число превращается в текст"],
-    "correct": [1]
-  },
-  {
-    "q": "Какая из этих строк — пример явного приведения типа (casting)?",
-    "code": null,
-    "multi": false,
-    "options": ["double b = a;", "int intHealth = (int) health;", "int age = 12;", "score += 5;"],
-    "correct": [1]
-  },
-  {
     "q": "Что выведет этот код?",
     "code": "int score = 0;\nscore += 5;\nscore *= 2;\nSystem.out.println(score);",
     "multi": false,
