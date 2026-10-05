@@ -1,0 +1,37 @@
+[
+  {
+    "q": "Что выведет этот код?",
+    "code": "int a = 5;\nint b = 3;\nSystem.out.println(a & b);",
+    "multi": false,
+    "options": ["8", "1", "7", "15"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int a = 5;\nint b = 3;\nSystem.out.println(a | b);",
+    "multi": false,
+    "options": ["1", "8", "7", "2"],
+    "correct": [2]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "double d = 7 / 2;\nSystem.out.println(d);",
+    "multi": false,
+    "options": ["3.5", "3.0", "4.0", "Ошибка компиляции"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int x = 10;\nx -= 3;\nx *= 2;\nSystem.out.println(x);",
+    "multi": false,
+    "options": ["14", "20", "7", "17"],
+    "correct": [0]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int a = 5;\nint b = (int)(a / 2.0);\nSystem.out.println(b);",
+    "multi": false,
+    "options": ["2", "2.5", "3", "0"],
+    "correct": [0]
+  }
+]

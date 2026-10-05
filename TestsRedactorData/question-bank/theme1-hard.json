@@ -1,0 +1,37 @@
+[
+  {
+    "q": "Что выведет этот код?",
+    "code": "System.out.println(5 + 5 + \"Очков\");",
+    "multi": false,
+    "options": ["10Очков", "55Очков", "5 5Очков", "Ошибка компиляции"],
+    "correct": [0]
+  },
+  {
+    "q": "Какая из этих строк вызовет ошибку компиляции?",
+    "code": null,
+    "multi": false,
+    "options": ["int age = 12;", "float speed = 5.5;", "boolean isAlive = true;", "String name = \"Соня\";"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "char symbol = 'A';\nboolean isCorrect = (symbol == 'A');\nSystem.out.println(symbol);\nSystem.out.println(isCorrect);",
+    "multi": false,
+    "options": ["A и true (две строки)", "65 и true (две строки)", "A и false (две строки)", "Ошибка компиляции"],
+    "correct": [0]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "String message = \"5\" + 5;\nSystem.out.println(message);",
+    "multi": false,
+    "options": ["10", "55", "5 5", "Ошибка компиляции"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int x = 7;\nSystem.out.println(\"x = \" + x + \", x*2 = \" + x * 2);",
+    "multi": false,
+    "options": ["x = 7, x*2 = 14", "x = 7, x*2 = 72", "x = 14, x*2 = 14", "Ошибка компиляции"],
+    "correct": [0]
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "q": "Какой тип данных хранит значения true и false?",
+    "code": null,
+    "multi": false,
+    "options": ["int", "String", "boolean", "char"],
+    "correct": [2]
+  },
+  {
+    "q": "Какой оператор используется для логического И?",
+    "code": null,
+    "multi": false,
+    "options": ["||", "&&", "!", "=="],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "if (5 > 3) {\n    System.out.println(\"Да\");\n}",
+    "multi": false,
+    "options": ["Да", "Нет", "5", "Ничего не выведется"],
+    "correct": [0]
+  },
+  {
+    "q": "Какое ключевое слово используется для варианта \"иначе\" в условном операторе?",
+    "code": null,
+    "multi": false,
+    "options": ["other", "else", "default", "elif"],
+    "correct": [1]
+  },
+  {
+    "q": "После какого ключевого слова в switch пишут значение, которое нужно обработать?",
+    "code": null,
+    "multi": false,
+    "options": ["if", "case", "switch", "break"],
+    "correct": [2]
+  }
+]

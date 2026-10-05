@@ -1,0 +1,37 @@
+[
+  {
+    "q": "Что выведет этот код?",
+    "code": "int score = 45;\nif (score > 50) {\n    System.out.println(\"Победа\");\n} else {\n    System.out.println(\"Поражение\");\n}",
+    "multi": false,
+    "options": ["Победа", "Поражение", "45", "Ничего не выведется"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int age = 14;\nif (age > 16) {\n    System.out.println(\"Взрослый\");\n} else if (age > 12) {\n    System.out.println(\"Подросток\");\n} else {\n    System.out.println(\"Ребёнок\");\n}",
+    "multi": false,
+    "options": ["Взрослый", "Подросток", "Ребёнок", "14"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int level = 2;\nswitch (level) {\n    case 1:\n        System.out.println(\"Лёгкий\");\n        break;\n    case 2:\n        System.out.println(\"Средний\");\n        break;\n    default:\n        System.out.println(\"Неизвестно\");\n}",
+    "multi": false,
+    "options": ["Лёгкий", "Средний", "Неизвестно", "Лёгкий и Средний"],
+    "correct": [1]
+  },
+  {
+    "q": "В switch забыли break после case 1. Что выведет код при level = 1?",
+    "code": "int level = 1;\nswitch (level) {\n    case 1:\n        System.out.println(\"Лёгкий\");\n    case 2:\n        System.out.println(\"Средний\");\n        break;\n    default:\n        System.out.println(\"Неизвестно\");\n}",
+    "multi": false,
+    "options": ["Только \"Лёгкий\"", "Только \"Средний\"", "\"Лёгкий\" и \"Средний\" (две строки)", "Ошибка компиляции"],
+    "correct": [2]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "boolean a = 5 > 3 && 2 > 4;\nSystem.out.println(a);",
+    "multi": false,
+    "options": ["true", "false", "5", "Ошибка компиляции"],
+    "correct": [1]
+  }
+]

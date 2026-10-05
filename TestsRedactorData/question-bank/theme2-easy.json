@@ -1,0 +1,37 @@
+[
+  {
+    "q": "Какая команда считывает с клавиатуры целое число?",
+    "code": null,
+    "multi": false,
+    "options": ["scanner.nextLine()", "scanner.nextInt()", "System.out.println()", "scanner.readInt()"],
+    "correct": [1]
+  },
+  {
+    "q": "Чему равно 7 / 2 в Java (оба числа типа int)?",
+    "code": null,
+    "multi": false,
+    "options": ["3.5", "3", "4", "0"],
+    "correct": [1]
+  },
+  {
+    "q": "Чему равно 7 % 2 в Java?",
+    "code": null,
+    "multi": false,
+    "options": ["3", "0", "1", "2"],
+    "correct": [2]
+  },
+  {
+    "q": "Что делает команда score++;?",
+    "code": null,
+    "multi": false,
+    "options": ["Уменьшает score на 1", "Увеличивает score на 1", "Умножает score на 2", "Обнуляет score"],
+    "correct": [1]
+  },
+  {
+    "q": "Какой оператор прибавляет значение к переменной одной командой?",
+    "code": null,
+    "multi": false,
+    "options": ["==", "+=", "=>", "**"],
+    "correct": [1]
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "q": "Что выведет этот код (синтаксис switch со стрелкой ->)?",
+    "code": "int level = 3;\nswitch (level) {\n    case 1 -> System.out.println(\"Лёгкий\");\n    case 2 -> System.out.println(\"Средний\");\n    default -> System.out.println(\"Неизвестно\");\n}",
+    "multi": false,
+    "options": ["Лёгкий", "Средний", "Неизвестно", "Ошибка компиляции"],
+    "correct": [2]
+  },
+  {
+    "q": "Что произойдёт при выполнении этого кода?",
+    "code": "if (true) {\n    int x = 5;\n}\nSystem.out.println(x);",
+    "multi": false,
+    "options": ["Выведется 5", "Выведется true", "Ошибка компиляции — x недоступен вне блока", "Ничего не произойдёт"],
+    "correct": [2]
+  },
+  {
+    "q": "Что произойдёт при выполнении этого кода?",
+    "code": "int x = 5;\nif (x = 5) {\n    System.out.println(\"Да\");\n}",
+    "multi": false,
+    "options": ["Выведется \"Да\"", "Ничего не выведется", "Ошибка компиляции", "Бесконечный цикл"],
+    "correct": [2]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int x = 10;\nif (x > 5) {\n    int y = x * 2;\n    if (y > 15) {\n        System.out.println(\"y велик: \" + y);\n    }\n}\nSystem.out.println(x);",
+    "multi": false,
+    "options": ["y велик: 20, затем 10 (две строки)", "Только 10", "Только y велик: 20", "Ошибка компиляции"],
+    "correct": [0]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int level = 2;\nswitch (level) {\n    case 1:\n    case 2:\n        System.out.println(\"Начальный уровень\");\n        break;\n    case 3:\n        System.out.println(\"Продвинутый\");\n        break;\n}",
+    "multi": false,
+    "options": ["Начальный уровень", "Продвинутый", "Ничего не выведется", "Ошибка компиляции"],
+    "correct": [0]
+  }
+]

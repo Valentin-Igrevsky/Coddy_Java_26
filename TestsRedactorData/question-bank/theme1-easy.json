@@ -1,0 +1,37 @@
+[
+  {
+    "q": "Что такое Java?",
+    "code": null,
+    "multi": false,
+    "options": ["Язык разметки для сайтов", "Язык программирования", "Операционная система", "Текстовый редактор"],
+    "correct": [1]
+  },
+  {
+    "q": "Какая команда используется, чтобы вывести текст в консоль?",
+    "code": null,
+    "multi": false,
+    "options": ["System.in.println()", "System.out.println()", "Console.write()", "print.System()"],
+    "correct": [1]
+  },
+  {
+    "q": "Какой тип данных используется для хранения текста?",
+    "code": null,
+    "multi": false,
+    "options": ["int", "boolean", "String", "char"],
+    "correct": [2]
+  },
+  {
+    "q": "Как называется метод, с которого начинается выполнение Java-программы?",
+    "code": null,
+    "multi": false,
+    "options": ["start", "main", "run", "begin"],
+    "correct": [1]
+  },
+  {
+    "q": "Какой знак обязателен в конце большинства команд в Java?",
+    "code": null,
+    "multi": false,
+    "options": [". (точка)", "; (точка с запятой)", ": (двоеточие)", ", (запятая)"],
+    "correct": [1]
+  }
+]
