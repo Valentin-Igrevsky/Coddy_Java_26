@@ -7,7 +7,7 @@
     "correct": [0]
   },
   {
-    "q": "Какая из этих строк вызовет ошибку компиляции (программа не запустится)?",
+    "q": "Какая из этих строк вызовет ошибку компиляции?",
     "code": null,
     "multi": false,
     "options": ["int age = 12;", "float speed = 5.5;", "boolean isAlive = true;", "String name = \"Соня\";"],
@@ -32,6 +32,41 @@
     "code": "int x = 7;\nSystem.out.println(\"x = \" + x + \", x*2 = \" + x * 2);",
     "multi": false,
     "options": ["x = 7, x*2 = 14", "x = 7, x*2 = 72", "x = 14, x*2 = 14", "Ошибка компиляции"],
+    "correct": [0]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int a = 3;\nint b = 2;\nSystem.out.println(\"Сумма: \" + a + b + \"!\");",
+    "multi": false,
+    "options": ["Сумма: 5!", "Сумма: 32!", "Сумма: 23!", "Ошибка компиляции"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "System.out.println(1 + 2 + \"3\" + 4 + 5);",
+    "multi": false,
+    "options": ["3345", "12345", "15", "Ошибка компиляции"],
+    "correct": [0]
+  },
+  {
+    "q": "Какая из этих строк вызовет ошибку компиляции?",
+    "code": null,
+    "multi": false,
+    "options": ["char letter = 'AB';", "char letter = 'A';", "String word = \"AB\";", "int number = 5;"],
+    "correct": [0]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int x = 4;\ndouble y = x;\nSystem.out.println(y);",
+    "multi": false,
+    "options": ["4", "4.0", "Ошибка компиляции", "0.4"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "boolean flag = 5 == 5.0;\nSystem.out.println(flag);",
+    "multi": false,
+    "options": ["true", "false", "Ошибка компиляции", "5.0"],
     "correct": [0]
   }
 ]

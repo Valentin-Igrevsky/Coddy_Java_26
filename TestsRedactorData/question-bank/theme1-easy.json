@@ -33,5 +33,40 @@
     "multi": false,
     "options": [". (точка)", "; (точка с запятой)", ": (двоеточие)", ", (запятая)"],
     "correct": [1]
+  },
+  {
+    "q": "Кто изначально разработал язык Java?",
+    "code": null,
+    "multi": false,
+    "options": ["Sun Microsystems", "Microsoft", "Apple", "Google"],
+    "correct": [0]
+  },
+  {
+    "q": "Какая из этих игр написана на Java?",
+    "code": null,
+    "multi": false,
+    "options": ["Minecraft", "Photoshop", "Microsoft Word", "Paint"],
+    "correct": [0]
+  },
+  {
+    "q": "Какой знак используется для однострочного комментария в Java?",
+    "code": null,
+    "multi": false,
+    "options": ["//", "/* */", "#", "--"],
+    "correct": [0]
+  },
+  {
+    "q": "Какое ключевое слово используется, чтобы объявить класс?",
+    "code": null,
+    "multi": false,
+    "options": ["class", "struct", "object", "function"],
+    "correct": [0]
+  },
+  {
+    "q": "Какие символы используются, чтобы обозначить начало и конец блока кода (тело метода)?",
+    "code": null,
+    "multi": false,
+    "options": ["( )", "[ ]", "{ }", "< >"],
+    "correct": [2]
   }
 ]

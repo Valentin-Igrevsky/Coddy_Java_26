@@ -33,5 +33,40 @@
     "multi": false,
     "options": ["true", "false", "5", "Ошибка компиляции"],
     "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int score = 80;\nif (score >= 90) {\n    System.out.println(\"A\");\n} else if (score >= 70) {\n    System.out.println(\"B\");\n} else {\n    System.out.println(\"C\");\n}",
+    "multi": false,
+    "options": ["A", "B", "C", "80"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "boolean a = 5 > 3 || 2 > 4;\nSystem.out.println(a);",
+    "multi": false,
+    "options": ["true", "false", "5", "Ошибка компиляции"],
+    "correct": [0]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int day = 3;\nswitch (day) {\n    case 1:\n        System.out.println(\"Пн\");\n        break;\n    case 2:\n        System.out.println(\"Вт\");\n        break;\n    case 3:\n        System.out.println(\"Ср\");\n        break;\n    default:\n        System.out.println(\"?\");\n}",
+    "multi": false,
+    "options": ["Пн", "Вт", "Ср", "?"],
+    "correct": [2]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int x = 10;\nif (x != 10) {\n    System.out.println(\"A\");\n} else {\n    System.out.println(\"B\");\n}",
+    "multi": false,
+    "options": ["A", "B", "10", "Ошибка компиляции"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int level = 2;\nswitch (level) {\n    case 1:\n        System.out.println(\"Лёгкий\");\n        break;\n    case 2:\n        System.out.println(\"Средний\");\n    case 3:\n        System.out.println(\"Сложный\");\n        break;\n    default:\n        System.out.println(\"Неизвестно\");\n}",
+    "multi": false,
+    "options": ["Только \"Средний\"", "\"Средний\" и \"Сложный\" (две строки)", "Только \"Сложный\"", "Ошибка компиляции"],
+    "correct": [1]
   }
 ]

@@ -26,5 +26,47 @@
     "multi": false,
     "options": ["14", "20", "7", "17"],
     "correct": [0]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int a = 6;\nint b = 5;\nSystem.out.println(a & b);",
+    "multi": false,
+    "options": ["1", "4", "7", "11"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int a = 6;\nint b = 5;\nSystem.out.println(a | b);",
+    "multi": false,
+    "options": ["4", "7", "1", "11"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "double d = 9 / 4;\nSystem.out.println(d);",
+    "multi": false,
+    "options": ["2.25", "2.0", "3.0", "Ошибка компиляции"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int x = 20;\nx /= 4;\nx += 3;\nSystem.out.println(x);",
+    "multi": false,
+    "options": ["8", "5", "23", "17"],
+    "correct": [0]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int a = 5;\nint b = 2;\nSystem.out.println(a ^ b);",
+    "multi": false,
+    "options": ["0", "7", "10", "3"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int y = 15;\ny %= 4;\ny *= 3;\nSystem.out.println(y);",
+    "multi": false,
+    "options": ["9", "45", "12", "3"],
+    "correct": [0]
   }
 ]

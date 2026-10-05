@@ -19,5 +19,54 @@
     "multi": false,
     "options": ["Результат: 10", "Результат: 55", "Результат: 5", "Ошибка"],
     "correct": [1]
+  },
+  {
+    "q": "Какая из этих строк правильно объявляет переменную типа char?",
+    "code": null,
+    "multi": false,
+    "options": ["char grade = 'A';", "char grade = \"A\";", "char grade = A;", "int grade = 'A';"],
+    "correct": [0]
+  },
+  {
+    "q": "Какая из этих строк правильно объявляет переменную типа boolean?",
+    "code": null,
+    "multi": false,
+    "options": ["boolean isAlive = true;", "boolean isAlive = \"true\";", "bool isAlive = true;", "boolean isAlive = 1;"],
+    "correct": [0]
+  },
+  {
+    "q": "Какая из этих строк правильно объявляет переменную типа String?",
+    "code": null,
+    "multi": false,
+    "options": ["String name = \"Соня\";", "String name = 'Соня';", "string name = \"Соня\";", "String name = Соня;"],
+    "correct": [0]
+  },
+  {
+    "q": "В каком расширении сохраняются файлы с кодом на Java?",
+    "code": null,
+    "multi": false,
+    "options": [".java", ".js", ".class", ".jav"],
+    "correct": [0]
+  },
+  {
+    "q": "Какую кнопку в IntelliJ IDEA используют, чтобы запустить программу?",
+    "code": null,
+    "multi": false,
+    "options": ["Зелёный треугольник (Run)", "Красный квадрат (Stop)", "Синяя стрелка (Debug)", "Жёлтая молния"],
+    "correct": [0]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int b = 3;\nSystem.out.println(\"Число: \" + b + b);",
+    "multi": false,
+    "options": ["Число: 6", "Число: 33", "Число: 3", "Ошибка"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int c = 7;\nSystem.out.println(c + c + \" результат\");",
+    "multi": false,
+    "options": ["14 результат", "77 результат", "7 7 результат", "Ошибка компиляции"],
+    "correct": [0]
   }
 ]

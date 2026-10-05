@@ -33,5 +33,40 @@
     "multi": false,
     "options": ["if", "case", "switch", "break"],
     "correct": [2]
+  },
+  {
+    "q": "Какой оператор проверяет, что два значения НЕ равны?",
+    "code": null,
+    "multi": false,
+    "options": ["==", "!=", "<>", "~="],
+    "correct": [1]
+  },
+  {
+    "q": "Какой оператор используется для логического ИЛИ?",
+    "code": null,
+    "multi": false,
+    "options": ["&&", "||", "!", "::"],
+    "correct": [1]
+  },
+  {
+    "q": "Какое ключевое слово в switch используется для варианта \"если ничего не подошло\"?",
+    "code": null,
+    "multi": false,
+    "options": ["else", "default", "other", "none"],
+    "correct": [1]
+  },
+  {
+    "q": "Какой оператор используется для логического отрицания (НЕ)?",
+    "code": null,
+    "multi": false,
+    "options": ["!", "~", "^", "??"],
+    "correct": [0]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "if (3 > 5) {\n    System.out.println(\"Да\");\n} else {\n    System.out.println(\"Нет\");\n}",
+    "multi": false,
+    "options": ["Да", "Нет", "3", "Ничего не выведется"],
+    "correct": [1]
   }
 ]

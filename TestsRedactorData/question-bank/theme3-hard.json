@@ -33,5 +33,40 @@
     "multi": false,
     "options": ["Начальный уровень", "Продвинутый", "Ничего не выведется", "Ошибка компиляции"],
     "correct": [0]
+  },
+  {
+    "q": "Что произойдёт при выполнении этого кода?",
+    "code": "int a = 5;\n{\n    int a = 10;\n    System.out.println(a);\n}",
+    "multi": false,
+    "options": ["Выведется 10", "Выведется 5", "Выведется 5 и 10", "Ошибка компиляции — переменная a уже объявлена"],
+    "correct": [3]
+  },
+  {
+    "q": "Что выведет этот код (несколько значений в одном case через запятую)?",
+    "code": "int day = 6;\nswitch (day) {\n    case 6, 7 -> System.out.println(\"Выходной\");\n    default -> System.out.println(\"Будний день\");\n}",
+    "multi": false,
+    "options": ["Выходной", "Будний день", "6", "Ошибка компиляции"],
+    "correct": [0]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "boolean result = !(5 > 3);\nSystem.out.println(result);",
+    "multi": false,
+    "options": ["true", "false", "5", "Ошибка компиляции"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int x = 0;\nif (x != 0 && 10 / x > 1) {\n    System.out.println(\"Да\");\n} else {\n    System.out.println(\"Нет\");\n}",
+    "multi": false,
+    "options": ["Да", "Нет", "Ошибка — деление на ноль", "Бесконечный цикл"],
+    "correct": [1]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "int score = 75;\nString grade;\nif (score >= 90) {\n    grade = \"A\";\n} else if (score >= 75) {\n    grade = \"B\";\n} else {\n    grade = \"C\";\n}\nSystem.out.println(grade);",
+    "multi": false,
+    "options": ["A", "B", "C", "Ошибка компиляции"],
+    "correct": [1]
   }
 ]

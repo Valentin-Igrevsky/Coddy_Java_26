@@ -33,5 +33,40 @@
     "multi": false,
     "options": ["==", "+=", "=>", "**"],
     "correct": [1]
+  },
+  {
+    "q": "Какой оператор вычитает значение из переменной одной командой?",
+    "code": null,
+    "multi": false,
+    "options": ["-=", "=-", "--", "!="],
+    "correct": [0]
+  },
+  {
+    "q": "Что делает команда score--;?",
+    "code": null,
+    "multi": false,
+    "options": ["Увеличивает score на 1", "Уменьшает score на 1", "Делит score на 2", "Обнуляет score"],
+    "correct": [1]
+  },
+  {
+    "q": "Какой знак используется для умножения в Java?",
+    "code": null,
+    "multi": false,
+    "options": ["x", "*", "^", "×"],
+    "correct": [1]
+  },
+  {
+    "q": "Какой метод Scanner используется, чтобы считать целую строку текста?",
+    "code": null,
+    "multi": false,
+    "options": ["scanner.nextInt()", "scanner.nextLine()", "scanner.readText()", "scanner.getLine()"],
+    "correct": [1]
+  },
+  {
+    "q": "Сколько чисел участвует в операции деления с остатком a % b?",
+    "code": null,
+    "multi": false,
+    "options": ["Одно", "Два", "Три", "Ноль"],
+    "correct": [1]
   }
 ]
