@@ -145,7 +145,7 @@ static char[][] createBoard() {
 **Задание 1:**
 
 ```java
-public class Main {
+
     public static void main(String[] args) {
         char[][] board = createBoard();
         printBoard(board);
@@ -172,7 +172,7 @@ public class Main {
         }
         System.out.println();
     }
-}
+
 ```
 
 **Пример вывода в консоль:**
