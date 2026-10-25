@@ -27,6 +27,7 @@
 - [**Тест №3** (04.10.26)](https://valentin-igrevsky.github.io/Coddy_Java_26/ControlWork/Test-3.html)
 - [**Тест №4** (11.10.26)](https://valentin-igrevsky.github.io/Coddy_Java_26/ControlWork/Test-4.html)
 - [**Итоговый тест по занятиям 1-4**](https://valentin-igrevsky.github.io/Coddy_Java_26/ControlWork/Test-Combo.html)
+- [**Тест №6** (25.10.26)](https://valentin-igrevsky.github.io/Coddy_Java_26/ControlWork/Test-6.html)
 
 ---
 
