@@ -323,7 +323,7 @@ static int readCell(char player_symbol) {
 ```java
 import java.util.Scanner;
 
-public static void main(String[] args) {
+void main(String[] args) {
     char[][] board = createBoard();                             // Создание доски
     printBoard(board);                                          // Вывод доски в консоль
 
