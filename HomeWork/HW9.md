@@ -360,9 +360,7 @@ Hero hero_3 = new Hero(85);
 
 ```java
 hero_3.name ="Новый герой";
-        System.out.
-
-println(hero_3.name);
+System.out.println(hero_3.name);
 ```
 
 **Опыт 2. Закрытое поле (`private`).** У героя `hero_1` попробуйте напрямую, без методов, записать здоровье `100`,
@@ -371,9 +369,7 @@ println(hero_3.name);
 
 ```java
 hero_1.health =100;
-        System.out.
-
-println(hero_1.health);
+System.out.println(hero_1.health);
 ```
 
 - **Сфотографируйте ошибки** - это часть выполнения домашнего задания
@@ -386,27 +382,21 @@ println(hero_1.health);
 
 ```java
 hero_1.setHealth(200);
-System.out.
-
-println(hero_1.getHealth());
+System.out.println(hero_1.getHealth());
 ```
 
 2. Установите здоровье `-10` и выведите его. Сеттер не позволит здоровью быть меньше 0
 
 ```java
 hero_1.setHealth(-10);
-System.out.
-
-println(hero_1.getHealth());
+System.out.println(hero_1.getHealth());
 ```
 
 3. Установите здоровье `60` и выведите его. Допустимое значение записывается как есть
 
 ```java
 hero_1.setHealth(60);
-System.out.
-
-println(hero_1.getHealth());
+System.out.println(hero_1.getHealth());
 ```
 
 **Опыт 4. Константа (`final`).** Попробуйте изменить максимальное здоровье у героя `hero_2`:
