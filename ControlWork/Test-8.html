@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тест по занятию 8: Java</title>
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --card-bg: #ffffff;
+    --text: #2b2620;
+    --text-soft: #6b6355;
+    --accent: #c9622a;
+    --accent-dark: #a84f20;
+    --border: #e4ddcf;
+    --correct: #2f7d4f;
+    --correct-bg: #e6f4ea;
+    --wrong: #c0392b;
+    --wrong-bg: #fbe9e7;
+    --option-bg: #fbfaf7;
+    --option-hover: #f1ebdd;
+    --code-bg: #2b2620;
+    --code-text: #f4f1ea;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-sizing: border-box;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1a17;
+      --card-bg: #26231f;
+      --text: #efe9df;
+      --text-soft: #a89f8e;
+      --accent: #e08a4f;
+      --accent-dark: #f0a06a;
+      --border: #3a3630;
+      --correct: #6fce93;
+      --correct-bg: #1f3527;
+      --wrong: #ec7a68;
+      --wrong-bg: #3a2320;
+      --option-bg: #2e2a24;
+      --option-hover: #38332b;
+      --code-bg: #12100e;
+      --code-text: #efe9df;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1a17;
+    --card-bg: #26231f;
+    --text: #efe9df;
+    --text-soft: #a89f8e;
+    --accent: #e08a4f;
+    --accent-dark: #f0a06a;
+    --border: #3a3630;
+    --correct: #6fce93;
+    --correct-bg: #1f3527;
+    --wrong: #ec7a68;
+    --wrong-bg: #3a2320;
+    --option-bg: #2e2a24;
+    --option-hover: #38332b;
+    --code-bg: #12100e;
+    --code-text: #efe9df;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+    line-height: 1.5;
+    padding: 24px 16px 64px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 28px; }
+  header .badge {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 12px;
+  }
+  h1 { font-size: clamp(22px, 5vw, 30px); margin: 0 0 8px; }
+  header p { color: var(--text-soft); margin: 0; font-size: 15px; }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 20px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+  .q-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .q-num { font-weight: 700; color: var(--accent); font-size: 15px; flex-shrink: 0; }
+  .q-text { font-weight: 600; font-size: 17px; }
+  .q-hint { font-size: 12.5px; color: var(--text-soft); margin: 0 0 12px 26px; }
+  .q-meta {
+    display: inline-block;
+    font-size: 11.5px;
+    color: var(--accent);
+    background: var(--option-bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 2px 10px;
+    margin: 0 0 10px 26px;
+  }
+  pre.code {
+    background: var(--code-bg);
+    color: var(--code-text);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin: 0 0 14px 26px;
+    font-family: "Consolas", "Menlo", monospace;
+    font-size: 13.5px;
+    overflow-x: auto;
+    max-width: calc(100% - 26px);
+    white-space: pre;
+  }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  label.option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--option-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    font-size: 15px;
+  }
+  label.option:hover { background: var(--option-hover); }
+  label.option input { accent-color: var(--accent); width: 17px; height: 17px; flex-shrink: 0; }
+  label.option code { font-family: "Consolas", "Menlo", monospace; }
+  label.option.correct-mark { border-color: var(--correct); background: var(--correct-bg); color: var(--correct); }
+  label.option.wrong-mark { border-color: var(--wrong); background: var(--wrong-bg); color: var(--wrong); }
+  .result-line { font-size: 13.5px; margin-top: 10px; font-weight: 600; }
+  .result-line.ok { color: var(--correct); }
+  .result-line.bad { color: var(--wrong); }
+  .actions { display: flex; justify-content: center; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+  button {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 999px;
+    padding: 12px 28px;
+    cursor: pointer;
+    transition: transform 0.1s ease, background 0.15s ease;
+  }
+  button:active { transform: scale(0.97); }
+  #submitBtn { background: var(--accent); color: #fff; }
+  #submitBtn:hover { background: var(--accent-dark); }
+  #resetBtn { background: transparent; color: var(--text-soft); border: 1px solid var(--border); display: none; }
+  #summary {
+    display: none;
+    text-align: center;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin-bottom: 18px;
+  }
+  #summary .score { font-size: 38px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+  #summary .msg { color: var(--text-soft); font-size: 15px; }
+  footer { text-align: center; color: var(--text-soft); font-size: 12.5px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="badge">Занятие 8 · Java</div>
+    <h1>Проверь себя</h1>
+    <p>Выбери один или несколько вариантов ответа в каждом вопросе, затем нажми «Проверить»</p>
+  </header>
+
+  <div id="summary">
+    <div class="score" id="scoreText">0 / 0</div>
+    <div class="msg" id="scoreMsg"></div>
+  </div>
+
+  <form id="quizForm"></form>
+
+  <div class="actions">
+    <button type="button" id="submitBtn">Проверить ответы</button>
+    <button type="button" id="resetBtn">Попробовать снова</button>
+  </div>
+
+  <footer>Курс «Создание игр на Java» · Тест по занятию 8</footer>
+</div>
+
+<script>
+  const questions = [
+  {
+    "q": "Что такое перегрузка методов?",
+    "code": null,
+    "multi": false,
+    "options": [
+      "Когда метод вызывает сам себя",
+      "Когда в классе есть несколько методов с одним именем, но с разными параметрами",
+      "Когда в метод передают слишком много аргументов",
+      "Когда метод возвращает сразу два значения"
+    ],
+    "correct": [
+      1
+    ]
+  },
+  {
+    "q": "Что означает модификатор private у полей?",
+    "code": null,
+    "multi": false,
+    "options": [
+      "Их можно использовать откуда угодно",
+      "Их значение нельзя изменить после создания",
+      "Ими можно пользоваться только внутри своего класса",
+      "Они принадлежат не объекту, а классу"
+    ],
+    "correct": [
+      2
+    ]
+  },
+  {
+    "q": "Для чего нужны геттер и сеттер?",
+    "code": null,
+    "multi": false,
+    "options": [
+      "Чтобы читать и изменять закрытые поля через методы, при необходимости проверяя значения",
+      "Чтобы создавать объекты класса",
+      "Чтобы запретить менять значение поля навсегда",
+      "Чтобы выводить текст в консоль"
+    ],
+    "correct": [
+      0
+    ]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "class Printer {\n    void print(int x) {\n        System.out.println(\"int: \" + x);\n    }\n\n    void print(String x) {\n        System.out.println(\"String: \" + x);\n    }\n}\n\nPrinter p = new Printer();\np.print(5);\np.print(\"5\");",
+    "multi": false,
+    "options": [
+      "int: 5, затем int: 5",
+      "String: 5, затем String: 5",
+      "int: 5, затем String: 5",
+      "Ошибка компиляции"
+    ],
+    "correct": [
+      2
+    ]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "class Hero {\n    String name;\n    int health;\n\n    Hero(String name) {\n        this.name = name;\n        this.health = 100;\n    }\n\n    Hero(int health) {\n        this.name = \"Герой\";\n        this.health = health;\n    }\n}\n\nHero a = new Hero(\"Аня\");\nHero b = new Hero(85);\nSystem.out.println(a.name + \" \" + a.health + \", \" + b.name + \" \" + b.health);",
+    "multi": false,
+    "options": [
+      "Аня 100, Герой 85",
+      "Аня 85, Герой 100",
+      "Герой 100, Аня 85",
+      "Ошибка компиляции"
+    ],
+    "correct": [
+      0
+    ]
+  },
+  {
+    "q": "Что произойдёт при компиляции этого класса?",
+    "code": "class Calc {\n    int calc(int a) {\n        return a;\n    }\n\n    double calc(int a) {\n        return a;\n    }\n}",
+    "multi": false,
+    "options": [
+      "Всё скомпилируется, это правильная перегрузка",
+      "Ошибка компиляции: методы отличаются только типом результата, а не параметрами",
+      "Выведется 0",
+      "Скомпилируется, но программа упадёт при запуске"
+    ],
+    "correct": [
+      1
+    ]
+  },
+  {
+    "q": "Что выведет этот код?",
+    "code": "class Hero {\n    private int health;\n\n    void setHealth(int health) {\n        if (health < 0) {\n            this.health = 0;\n        } else if (health > 100) {\n            this.health = 100;\n        } else {\n            this.health = health;\n        }\n    }\n\n    int getHealth() {\n        return health;\n    }\n}\n\nHero h = new Hero();\nh.setHealth(150);\nSystem.out.println(h.getHealth());\nh.setHealth(-5);\nSystem.out.println(h.getHealth());",
+    "multi": false,
+    "options": [
+      "150, затем -5",
+      "100, затем 0",
+      "100, затем -5",
+      "150, затем 0"
+    ],
+    "correct": [
+      1
+    ]
+  },
+  {
+    "q": "Что произойдёт при выполнении строки h.health = 50;? (класс Hero записан отдельно от Main, не внутри него)",
+    "code": "class Hero {\n    private int health;\n}\n\n// в методе main (класс Main):\nHero h = new Hero();\nh.health = 50;",
+    "multi": false,
+    "options": [
+      "Здоровье героя станет 50",
+      "Здоровье героя станет 0",
+      "Строка будет проигнорирована",
+      "Ошибка компиляции: к private-полю нельзя обратиться снаружи класса"
+    ],
+    "correct": [
+      3
+    ]
+  },
+  {
+    "q": "Что произойдёт при выполнении этого кода?",
+    "code": "final int MAX = 100;\nMAX = 200;\nSystem.out.println(MAX);",
+    "multi": false,
+    "options": [
+      "Выведется 200",
+      "Выведется 100",
+      "Ошибка компиляции: значение final-переменной нельзя менять",
+      "Выведется 0"
+    ],
+    "correct": [
+      2
+    ]
+  },
+  {
+    "q": "Что произойдёт при запуске этого кода? (класс Hero записан отдельно от Main, не внутри него)",
+    "code": "class Hero {\n    private int limit(int v) {\n        return v > 100 ? 100 : v;\n    }\n\n    public int safe(int v) {\n        return limit(v);\n    }\n}\n\n// в методе main (класс Main):\nHero h = new Hero();\nSystem.out.println(h.safe(500));\nSystem.out.println(h.limit(500));",
+    "multi": false,
+    "options": [
+      "Выведется 100 и 100",
+      "Выведется 100 и 500",
+      "Выведется 100, а затем программа упадёт с ошибкой во время работы",
+      "Ошибка компиляции: private-метод limit нельзя вызвать из другого класса, программа не запустится"
+    ],
+    "correct": [
+      3
+    ]
+  }
+];
+
+  const form = document.getElementById("quizForm");
+  const letters = ["А", "Б", "В", "Г"];
+
+  function render() {
+    form.innerHTML = "";
+    questions.forEach((item, qi) => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const head = document.createElement("div");
+      head.className = "q-head";
+      head.innerHTML = `<span class="q-num">${qi + 1}.</span><span class="q-text">${item.q}</span>`;
+      card.appendChild(head);
+
+      if (item.theme || item.difficulty) {
+        const meta = document.createElement("div");
+        meta.className = "q-meta";
+        meta.textContent = [item.theme, item.difficulty].filter(Boolean).join(" · ");
+        card.appendChild(meta);
+      }
+
+      if (item.code) {
+        const pre = document.createElement("pre");
+        pre.className = "code";
+        pre.textContent = item.code;
+        card.appendChild(pre);
+      }
+
+      const hint = document.createElement("p");
+      hint.className = "q-hint";
+      hint.textContent = item.multi ? "Можно выбрать несколько ответов" : "Выбери один ответ";
+      card.appendChild(hint);
+
+      const opts = document.createElement("div");
+      opts.className = "options";
+
+      item.options.forEach((text, oi) => {
+        const label = document.createElement("label");
+        label.className = "option";
+        label.id = `opt-${qi}-${oi}`;
+        const input = document.createElement("input");
+        input.type = item.multi ? "checkbox" : "radio";
+        input.name = `q${qi}`;
+        input.value = oi;
+        label.appendChild(input);
+        const span = document.createElement("span");
+        span.innerHTML = `${letters[oi]}) <code>${text}</code>`;
+        label.appendChild(span);
+        opts.appendChild(label);
+      });
+
+      card.appendChild(opts);
+
+      const resultLine = document.createElement("div");
+      resultLine.className = "result-line";
+      resultLine.id = `result-${qi}`;
+      card.appendChild(resultLine);
+
+      form.appendChild(card);
+    });
+  }
+
+  function getSelected(qi) {
+    const inputs = form.querySelectorAll(`input[name="q${qi}"]:checked`);
+    return Array.from(inputs).map(i => parseInt(i.value, 10)).sort();
+  }
+
+  function arraysEqual(a, b) {
+    if (a.length !== b.length) return false;
+    return a.every((v, i) => v === b[i]);
+  }
+
+  function checkAnswers() {
+    let score = 0;
+    questions.forEach((item, qi) => {
+      const selected = getSelected(qi);
+      const correct = [...item.correct].sort();
+      const isCorrect = arraysEqual(selected, correct);
+      if (isCorrect) score++;
+
+      item.options.forEach((_, oi) => {
+        const label = document.getElementById(`opt-${qi}-${oi}`);
+        label.classList.remove("correct-mark", "wrong-mark");
+        const isChosen = selected.includes(oi);
+        const isRightOpt = correct.includes(oi);
+        if (isRightOpt) label.classList.add("correct-mark");
+        else if (isChosen && !isRightOpt) label.classList.add("wrong-mark");
+      });
+
+      const resultLine = document.getElementById(`result-${qi}`);
+      if (selected.length === 0) {
+        resultLine.textContent = "Ответ не выбран";
+        resultLine.className = "result-line bad";
+      } else if (isCorrect) {
+        resultLine.textContent = "Верно!";
+        resultLine.className = "result-line ok";
+      } else {
+        resultLine.textContent = "Неверно";
+        resultLine.className = "result-line bad";
+      }
+
+      form.querySelectorAll(`input[name="q${qi}"]`).forEach(i => i.disabled = true);
+    });
+
+    document.getElementById("scoreText").textContent = `${score} / ${questions.length}`;
+    let msg;
+    if (score === questions.length) msg = "Отлично! Все ответы верные 🎉";
+    else if (score >= questions.length - 2) msg = "Хороший результат, почти всё верно!";
+    else msg = "Есть над чем поработать — загляни в конспект занятия";
+    document.getElementById("scoreMsg").textContent = msg;
+
+    document.getElementById("summary").style.display = "block";
+    document.getElementById("submitBtn").style.display = "none";
+    document.getElementById("resetBtn").style.display = "inline-block";
+    document.getElementById("summary").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function reset() {
+    document.getElementById("summary").style.display = "none";
+    document.getElementById("submitBtn").style.display = "inline-block";
+    document.getElementById("resetBtn").style.display = "none";
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.getElementById("submitBtn").addEventListener("click", checkAnswers);
+  document.getElementById("resetBtn").addEventListener("click", reset);
+
+  render();
+</script>
+</body>
+</html>
