@@ -1,4 +1,4 @@
-### Установка Java, установка и настройка IntelliJ IDEA
+## Установка Java, установка и настройка IntelliJ IDEA
 
 - [**Гайд**](./Guide/Software_Installation_Guide.md)
 
