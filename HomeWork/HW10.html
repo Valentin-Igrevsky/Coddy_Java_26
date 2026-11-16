@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Собери код · countNeighbors (Сапёр)</title>
+
+    <!-- ============================================================
+         СТИЛИ СТРАНИЦЫ
+         ============================================================ -->
+    <style>
+        :root {
+            --bg: #f4f1ea;
+            --card-bg: #ffffff;
+            --text: #2b2620;
+            --text-soft: #6b6355;
+            --accent: #c9622a;
+            --accent-dark: #a84f20;
+            --border: #e4ddcf;
+            --correct: #2f7d4f;
+            --correct-bg: #e6f4ea;
+            --wrong: #c0392b;
+            --wrong-bg: #fbe9e7;
+            --option-bg: #fbfaf7;
+            --option-hover: #f1ebdd;
+            --code-bg: #2b2620;
+            --code-text: #f4f1ea;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            box-sizing: border-box;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #1c1a17;
+                --card-bg: #26231f;
+                --text: #efe9df;
+                --text-soft: #a89f8e;
+                --accent: #e08a4f;
+                --accent-dark: #f0a06a;
+                --border: #3a3630;
+                --correct: #6fce93;
+                --correct-bg: #1f3527;
+                --wrong: #ec7a68;
+                --wrong-bg: #3a2320;
+                --option-bg: #2e2a24;
+                --option-hover: #38332b;
+                --code-bg: #12100e;
+                --code-text: #efe9df;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #1c1a17;
+            --card-bg: #26231f;
+            --text: #efe9df;
+            --text-soft: #a89f8e;
+            --accent: #e08a4f;
+            --accent-dark: #f0a06a;
+            --border: #3a3630;
+            --correct: #6fce93;
+            --correct-bg: #1f3527;
+            --wrong: #ec7a68;
+            --wrong-bg: #3a2320;
+            --option-bg: #2e2a24;
+            --option-hover: #38332b;
+            --code-bg: #12100e;
+            --code-text: #efe9df;
+        }
+
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+            line-height: 1.5;
+            padding: 24px 16px 64px;
+        }
+
+        .wrap {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        header .badge {
+            display: inline-block;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 999px;
+            padding: 4px 14px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: clamp(22px, 5vw, 30px);
+            margin: 0 0 8px;
+        }
+
+        header p {
+            color: var(--text-soft);
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 20px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        .q-head {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .q-num {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .q-text {
+            font-weight: 600;
+            font-size: 17px;
+        }
+
+        .q-hint {
+            font-size: 12.5px;
+            color: var(--text-soft);
+            margin: 0 0 12px 26px;
+        }
+
+        .q-meta {
+            display: inline-block;
+            font-size: 11.5px;
+            color: var(--accent);
+            background: var(--option-bg);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 2px 10px;
+            margin: 0 0 10px 26px;
+        }
+
+        pre.code {
+            background: var(--code-bg);
+            color: var(--code-text);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin: 0 0 14px 26px;
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 13.5px;
+            overflow-x: auto;
+            max-width: calc(100% - 26px);
+            white-space: pre;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label.option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--option-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            cursor: pointer;
+            transition: background 0.15s ease, border-color 0.15s ease;
+            font-size: 15px;
+        }
+
+        label.option:hover {
+            background: var(--option-hover);
+        }
+
+        label.option input {
+            accent-color: var(--accent);
+            width: 17px;
+            height: 17px;
+            flex-shrink: 0;
+        }
+
+        label.option code {
+            font-family: "Consolas", "Menlo", monospace;
+        }
+
+        label.option.correct-mark {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+            color: var(--correct);
+        }
+
+        label.option.wrong-mark {
+            border-color: var(--wrong);
+            background: var(--wrong-bg);
+            color: var(--wrong);
+        }
+
+        .result-line {
+            font-size: 13.5px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .result-line.ok {
+            color: var(--correct);
+        }
+
+        .result-line.bad {
+            color: var(--wrong);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            border: none;
+            border-radius: 999px;
+            padding: 12px 28px;
+            cursor: pointer;
+            transition: transform 0.1s ease, background 0.15s ease;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        #submitBtn {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        #submitBtn:hover {
+            background: var(--accent-dark);
+        }
+
+        #resetBtn {
+            background: transparent;
+            color: var(--text-soft);
+            border: 1px solid var(--border);
+            display: none;
+        }
+
+        #summary {
+            display: none;
+            text-align: center;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin-bottom: 18px;
+        }
+
+        #summary .score {
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        #summary .msg {
+            color: var(--text-soft);
+            font-size: 15px;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-soft);
+            font-size: 12.5px;
+            margin-top: 20px;
+        }
+    </style>
+
+    <!-- ============================================================
+         СТИЛИ ПАЗЛА
+         ============================================================ -->
+    <style>
+        /* --- Область кода -------------------------------------------- */
+        .code-area {
+            background: var(--code-bg);
+            color: var(--code-text);
+            border-radius: 12px;
+            padding: 10px 10px;
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 12.5px;
+            line-height: 1.5;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* --- Явное разделение методов ------------------------------- */
+        .method-label {
+            font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            color: var(--accent);
+            opacity: 0.9;
+            margin: 16px 0 6px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.14);
+        }
+
+        .method-label:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        /* --- Слоты --------------------------------------------------- */
+        .slot {
+            border: 1px dashed rgba(255, 255, 255, 0.18);
+            border-radius: 7px;
+            margin: 2px 0;
+            transition: border-color .15s ease, background .15s ease;
+        }
+
+        .slot.over {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .slot-inner {
+            display: block;
+            min-height: 26px;
+        }
+
+        .slot-inner:empty::before {
+            content: "";
+            display: block;
+            height: 26px;
+        }
+
+        .slot.correct-mark {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .slot.wrong-mark {
+            border-color: var(--wrong);
+            background: var(--wrong-bg);
+        }
+
+        .slot.missing-mark {
+            border-color: var(--wrong);
+            border-style: dotted;
+            background: transparent;
+        }
+
+        .slot.correct-mark .block {
+            background: var(--correct-bg);
+            border-color: var(--correct);
+            color: var(--correct);
+        }
+
+        .slot.wrong-mark .block {
+            background: var(--wrong-bg);
+            border-color: var(--wrong);
+            color: var(--wrong);
+        }
+
+        /* --- Блок кода ----------------------------------------------- */
+        .block {
+            display: inline-block;
+            max-width: 100%;
+            overflow-x: auto;
+            white-space: pre;
+            font-family: "Consolas", "Menlo", monospace;
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--option-bg);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: 2px 9px;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            transition: box-shadow .15s ease, border-color .15s ease, background .15s ease;
+        }
+
+        .block:hover {
+            box-shadow: 0 1px 6px rgba(0, 0, 0, .18);
+        }
+
+        .block:active {
+            cursor: grabbing;
+        }
+
+        .block.dragging {
+            opacity: .4;
+        }
+
+        .block.selected {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        /* --- Полупрозрачные маркеры отступов ------------------------- */
+        .indent-guide {
+            opacity: 0.35;
+        }
+
+        /* --- Набор блоков: вертикальный список ---------------------- */
+        .pool {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+            max-height: 55vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 6px;
+            border-radius: 10px;
+            background: var(--option-bg);
+            border: 1px solid var(--border);
+        }
+
+        .pool .block {
+            flex: 0 0 auto;
+        }
+
+        /* --- Нижняя панель действий --------------------------------- */
+        .actions-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            background: transparent;
+        }
+
+        #resetBtn {
+            display: inline-block;
+        }
+
+        /* --- Легенда ------------------------------------------------- */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-size: 12.5px;
+            color: var(--text-soft);
+            margin-top: 10px;
+        }
+
+        .legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend i {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+            display: inline-block;
+            border: 1px solid var(--border);
+        }
+
+        .legend .sw-ok {
+            background: var(--correct-bg);
+            border-color: var(--correct);
+        }
+
+        .legend .sw-bad {
+            background: var(--wrong-bg);
+            border-color: var(--wrong);
+        }
+
+        .legend .sw-pipe {
+            width: auto;
+            height: auto;
+            border: none;
+            background: transparent;
+            font-family: monospace;
+            font-weight: 700;
+            opacity: 0.45;
+        }
+
+        /* --- Наглядные примеры для объяснения алгоритма ---------------- */
+        .visual-example {
+            margin: 10px 0 4px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--option-bg);
+        }
+
+        .visual-title {
+            margin: 0 0 8px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .visual-note {
+            margin: 8px 0 0;
+            color: var(--text-soft);
+            font-size: 12px;
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 34px);
+            gap: 4px;
+            width: max-content;
+            max-width: 100%;
+        }
+
+        .mini-grid.small-3 {
+            grid-template-columns: repeat(3, 42px);
+        }
+
+        .mini-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 32px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            background: var(--card-bg);
+            color: var(--text);
+            font: 12px "Consolas", monospace;
+        }
+
+        .mini-cell.current {
+            background: var(--correct-bg);
+            border: 2px solid var(--correct);
+            color: var(--correct);
+            font-weight: 700;
+        }
+
+        .mini-cell.neighbor {
+            background: #fff0d9;
+            border-color: #d99a3b;
+            color: #80500b;
+            font-weight: 700;
+        }
+
+        .mini-cell.skipped {
+            background: var(--wrong-bg);
+            border: 2px dashed var(--wrong);
+            color: var(--wrong);
+            font-weight: 700;
+        }
+
+        .visual-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .visual-labels {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--text-soft);
+        }
+
+        .visual-labels b {
+            color: var(--text);
+        }
+
+        .visual-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+            font-size: 11px;
+            color: var(--text-soft);
+        }
+
+        .visual-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .visual-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 3px;
+            border: 1px solid var(--border);
+            display: inline-block;
+            background: var(--card-bg);
+        }
+
+        .visual-dot.current {
+            background: var(--correct-bg);
+            border-color: var(--correct);
+        }
+
+        .visual-dot.neighbor {
+            background: #fff0d9;
+            border-color: #d99a3b;
+        }
+
+        .visual-dot.skipped {
+            background: var(--wrong-bg);
+            border-color: var(--wrong);
+        }
+
+        .coord-example {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 7px;
+            font: 13px "Consolas", monospace;
+        }
+
+        .coord-chip {
+            padding: 5px 8px;
+            border-radius: 6px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+        }
+
+        .coord-arrow {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        @media (max-width: 420px) {
+            .mini-grid {
+                grid-template-columns: repeat(5, 28px);
+                gap: 3px;
+            }
+
+            .mini-grid.small-3 {
+                grid-template-columns: repeat(3, 36px);
+            }
+
+            .mini-cell {
+                min-height: 28px;
+                font-size: 11px;
+            }
+        }
+
+
+        /* --- Интерактивная визуализация подсчёта мин ------------------- */
+        .mine-demo {
+            margin-top: 18px;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--option-bg);
+        }
+
+        .mine-demo h3 {
+            margin: 0 0 6px;
+            font-size: 16px;
+        }
+
+        .mine-demo-intro {
+            margin: 0 0 12px;
+            color: var(--text-soft);
+            font-size: 13px;
+        }
+
+        .mine-demo-grid-wrap {
+            overflow-x: auto;
+            padding: 4px 0 8px;
+        }
+
+        .mine-demo-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(34px, 1fr));
+            gap: 4px;
+            width: min(100%, 390px);
+            min-width: 270px;
+            margin: 0 auto;
+        }
+
+        .mine-demo-cell {
+            min-height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--card-bg);
+            color: var(--text);
+            font: 13px "Consolas", monospace;
+            position: relative;
+        }
+
+        .mine-demo-cell.outside {
+            background: var(--bg);
+            border-style: dashed;
+            color: var(--text-soft);
+            opacity: .72;
+        }
+
+        .mine-demo-cell.mine {
+            background: #3b302b;
+            color: #fff;
+            border-color: #3b302b;
+        }
+
+        .mine-demo-cell.done {
+            background: var(--correct-bg);
+            border-color: var(--correct);
+            color: var(--correct);
+            font-weight: 800;
+        }
+
+        .mine-demo-cell.current {
+            outline: 3px solid var(--accent);
+            outline-offset: 1px;
+            z-index: 1;
+        }
+
+        .mine-demo-cell.neighbor-now {
+            background: #fff0d9;
+            border: 2px solid #d99a3b;
+            color: #80500b;
+            font-weight: 800;
+        }
+
+        .mine-demo-cell.invalid-now {
+            background: #ffe1e1;
+            border: 2px solid #dc2626;
+            color: #b91c1c;
+            font-weight: 800;
+            box-shadow: inset 0 0 0 1px #dc2626;
+        }
+
+        .mine-demo-cell.neighbor-seen {
+            box-shadow: inset 0 0 0 2px #d99a3b;
+        }
+
+        .mine-demo-cell .coord {
+            position: absolute;
+            top: 1px;
+            left: 3px;
+            font-size: 8px;
+            opacity: .7;
+        }
+
+        .mine-demo-cell .symbol {
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .mine-demo-status {
+            min-height: 52px;
+            margin: 10px 0;
+            padding: 9px 11px;
+            border-radius: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .mine-demo-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .mine-demo-controls button {
+            padding: 9px 15px;
+            font-size: 13px;
+        }
+
+        .mine-demo-controls .secondary {
+            background: transparent;
+            color: var(--text-soft);
+            border: 1px solid var(--border);
+        }
+
+        .mine-demo-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px 14px;
+            margin-top: 10px;
+            color: var(--text-soft);
+            font-size: 11px;
+        }
+
+        .mine-demo-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mine-demo-key {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            border: 1px solid var(--border);
+            display: inline-block;
+        }
+
+        .mine-demo-key.mine {
+            background: #3b302b;
+            border-color: #3b302b;
+        }
+
+        .mine-demo-key.current {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .mine-demo-key.neighbor {
+            background: #fff0d9;
+            border-color: #d99a3b;
+        }
+
+        .mine-demo-key.done {
+            background: var(--correct-bg);
+            border-color: var(--correct);
+        }
+
+        @media (max-width: 420px) {
+            .mine-demo-grid {
+                gap: 3px;
+                min-width: 250px;
+            }
+
+            .mine-demo-cell {
+                min-height: 33px;
+                font-size: 11px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+
+    <header>
+        <span class="badge">Разработка игр на Java</span>
+        <h1>Домашнее задание №10</h1>
+        <p>(с 15.11.26 до 22.11.26)</p>
+    </header>
+
+    <div class="card">
+        <div class="q-head">
+            <span class="q-num">?</span>
+            <span class="q-text">Что будет в задании</span>
+        </div>
+        <p class="q-hint" style="margin:0 0 8px 0;">
+            Перед решением интерактивной задачи обязательно прочитай описание частей кода ниже:
+            оно поможет понять, что делает каждый метод и зачем нужны отдельные команды.
+        </p>
+        <p class="q-hint" style="margin:0 0 8px 0;">
+            Затем перетащи блок из «Набора блоков» в нужный слот кода. На телефоне - просто нажми
+            на блок, а затем на слот. Чтобы вернуть блок обратно в набор, нажми на него внутри слота.
+        </p>
+        <p class="q-hint" style="margin:0 0 8px 0;">
+            Полупрозрачные чёрточки <span style="font-family:monospace;opacity:.55;">|</span>
+            в начале строк показывают уровень вложенности (один маркер = 4 пробела отступа).
+        </p>
+        <p class="q-hint" style="margin:0;">
+            Нажми «Проверить»: правильно размещённые блоки станут зелёными, неправильные и
+            пустые слоты - красными. В наборе есть <b>лишние блоки-обманки</b> - их использовать не нужно.
+        </p>
+        <div class="legend">
+            <span><i class="sw-ok"></i> блок на своём месте</span>
+            <span><i class="sw-bad"></i> блок не на своём месте / пусто</span>
+            <span><i class="sw-pipe">|</i> маркер отступа</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-head">
+            <span class="q-num">i</span>
+            <span class="q-text">Из чего состоит код?</span>
+        </div>
+        <p class="q-hint" style="margin:0 0 14px 0;">
+            Сначала разберёмся, как программа находит соседние мины. В коде два метода:
+            <b>isInside</b> проверяет границы поля, а <b>countNeighbors</b> считает мины вокруг каждой клетки.
+        </p>
+
+        <h3 style="font-size:16px; margin:16px 0 6px;">1. Метод isInside - проверяем, что клетка находится на поле</h3>
+        <pre class="code">public boolean isInside(int row, int col) {
+    return row &gt;= 0 &amp;&amp; row &lt; rows &amp;&amp; col &gt;= 0 &amp;&amp; col &lt; cols;
+}</pre>
+        <p class="q-hint" style="margin:0 0 8px 0;">
+            У каждой клетки есть координаты: <b>row</b> - номер строки, <b>col</b> - номер столбца.
+            Нумерация начинается с нуля. Например, если в поле 5 строк, их номера - от 0 до 4.
+        </p>
+        <div class="visual-example">
+            <p class="visual-title">Пример: поле размером 5 × 5</p>
+            <div class="visual-row">
+                <div class="mini-grid" aria-label="Поле 5 на 5: клетка с координатами 2, 3 находится внутри">
+                    <span class="mini-cell">0,0</span><span class="mini-cell">0,1</span><span
+                        class="mini-cell">0,2</span><span class="mini-cell">0,3</span><span class="mini-cell">0,4</span>
+                    <span class="mini-cell">1,0</span><span class="mini-cell">1,1</span><span
+                        class="mini-cell">1,2</span><span class="mini-cell">1,3</span><span class="mini-cell">1,4</span>
+                    <span class="mini-cell">2,0</span><span class="mini-cell">2,1</span><span
+                        class="mini-cell">2,2</span><span class="mini-cell current">2,3</span><span class="mini-cell">2,4</span>
+                    <span class="mini-cell">3,0</span><span class="mini-cell">3,1</span><span
+                        class="mini-cell">3,2</span><span class="mini-cell">3,3</span><span class="mini-cell">3,4</span>
+                    <span class="mini-cell">4,0</span><span class="mini-cell">4,1</span><span
+                        class="mini-cell">4,2</span><span class="mini-cell">4,3</span><span class="mini-cell">4,4</span>
+                </div>
+                <div class="visual-labels">
+                    <b>row = 2, col = 3</b>
+                    <span>Координаты от 0 до 4.</span>
+                    <span style="color:var(--correct);font-weight:700;">Клетка внутри поля - true</span>
+                    <span style="color:var(--wrong);">Например, row = -1 - снаружи, false</span>
+                </div>
+            </div>
+            <p class="visual-note">Зелёная клетка существует на поле. Координата -1 или 5 уже указывает за его
+                границы.</p>
+        </div>
+        <ul style="margin:0 0 12px 20px; padding:0;">
+            <li><b>public boolean</b> означает, что метод доступен из других классов и возвращает ответ «да» или «нет».
+            </li>
+            <li><b>isInside(row, col)</b> получает координаты клетки, которую нужно проверить.</li>
+            <li><b>row &gt;= 0</b> проверяет, что строка не находится выше поля, а <b>row &lt; rows</b> - что она не
+                ниже последней строки.
+            </li>
+            <li><b>col &gt;= 0</b> проверяет, что столбец не находится левее поля, а <b>col &lt; cols</b> - что он не
+                правее последнего столбца.
+            </li>
+            <li><b>&amp;&amp;</b> означает «И»: все четыре условия должны быть верными. Если хотя бы одно неверно,
+                координаты находятся за пределами поля.
+            </li>
+            <li><b>return</b> возвращает результат проверки: <b>true</b>, если клетка внутри поля, и <b>false</b>, если
+                снаружи.
+            </li>
+        </ul>
+        <p class="q-hint" style="margin:0;">
+            <b>Зачем это нужно?</b> У клеток на краю поля часть соседей находится за его пределами.
+            Нельзя обращаться к таким клеткам: программа может завершиться с ошибкой. Перед проверкой соседа
+            мы сначала убедимся, что его координаты допустимы.
+        </p>
+
+        <h3 style="font-size:16px; margin:20px 0 6px;">2. Метод countNeighbors - считаем мины вокруг каждой клетки</h3>
+        <p class="q-hint" style="margin:0 0 10px 0;">
+            Метод проходит по всему игровому полю. Для каждой клетки он проверяет до восьми соседей,
+            считает найденные мины и записывает число в эту клетку.
+        </p>
+        <ol style="margin:0 0 12px 20px; padding:0;">
+            <li style="margin-bottom:12px;">
+                <b>Два внешних цикла for</b>
+                <pre class="code">for (int r = 0; r &lt; rows; r++) {
+    for (int c = 0; c &lt; cols; c++) {
+        ...
+    }
+}</pre>
+                <p style="margin:0;">Переменная <code>r</code> перебирает строки, а <code>c</code> - столбцы. Так
+                    программа по очереди выбирает каждую клетку игрового поля. Один цикл отвечает за строки, второй - за
+                    столбцы.</p>
+                <div class="visual-example">
+                    <p class="visual-title">Как циклы обходят поле</p>
+                    <div class="visual-row">
+                        <div class="mini-grid" aria-label="Пример обхода клеток по строкам и столбцам">
+                            <span class="mini-cell">0,0</span><span class="mini-cell">0,1</span><span class="mini-cell">0,2</span><span
+                                class="mini-cell">0,3</span><span class="mini-cell">0,4</span>
+                            <span class="mini-cell">1,0</span><span class="mini-cell current">1,1</span><span
+                                class="mini-cell">1,2</span><span class="mini-cell">1,3</span><span class="mini-cell">1,4</span>
+                            <span class="mini-cell">2,0</span><span class="mini-cell">2,1</span><span class="mini-cell">2,2</span><span
+                                class="mini-cell">2,3</span><span class="mini-cell">2,4</span>
+                        </div>
+                        <div class="visual-labels">
+                            <b>r = 1</b><span>Выбрана вторая строка.</span>
+                            <b>c = 1</b><span>В этой строке выбрана вторая клетка.</span>
+                            <span>Затем <code>c</code> увеличится и перейдёт к следующему столбцу.</span>
+                        </div>
+                    </div>
+                    <p class="visual-note">Сначала внутренний цикл перебирает столбцы одной строки. Когда строка
+                        закончилась, внешний цикл переходит к следующей строке.</p>
+                </div>
+            </li>
+            <li style="margin-bottom:12px;">
+                <b>Счётчик найденных мин</b>
+                <pre class="code">int count = 0;</pre>
+                <p style="margin:0;">Создаём переменную <code>count</code>, в которой будем хранить количество мин
+                    вокруг текущей клетки. Она каждый раз начинается с нуля, потому что для следующей клетки нужно
+                    выполнить новый подсчёт.</p>
+            </li>
+            <li style="margin-bottom:12px;">
+                <b>Два внутренних цикла for</b>
+                <pre class="code">for (int dr = -1; dr &lt;= 1; dr++) {
+    for (int dc = -1; dc &lt;= 1; dc++) {
+        ...
+    }
+}</pre>
+                <p style="margin:0;">Переменные <code>dr</code> и <code>dc</code> принимают значения от -1 до 1. Они
+                    задают смещение относительно текущей клетки: на одну клетку вверх или вниз, влево или вправо, а
+                    также по диагонали. Так мы перебираем все девять позиций вокруг клетки, включая её саму.</p>
+                <div class="visual-example">
+                    <p class="visual-title">Все 9 позиций: смещения dr и dc</p>
+                    <div class="visual-row">
+                        <div class="mini-grid small-3" aria-label="Смещения относительно текущей клетки">
+                            <span class="mini-cell neighbor">-1,-1</span><span
+                                class="mini-cell neighbor">-1,0</span><span class="mini-cell neighbor">-1,1</span>
+                            <span class="mini-cell neighbor">0,-1</span><span class="mini-cell current">0,0</span><span
+                                class="mini-cell neighbor">0,1</span>
+                            <span class="mini-cell neighbor">1,-1</span><span class="mini-cell neighbor">1,0</span><span
+                                class="mini-cell neighbor">1,1</span>
+                        </div>
+                        <div class="visual-labels">
+                            <b>dr</b><span>Смещение по строкам: вверх / без сдвига / вниз.</span>
+                            <b>dc</b><span>Смещение по столбцам: влево / без сдвига / вправо.</span>
+                        </div>
+                    </div>
+                    <p class="visual-note">Каждая пара чисел - одно сочетание значений dr и dc. Восемь позиций - соседи,
+                        центральная позиция (0, 0) - сама клетка.</p>
+                </div>
+            </li>
+            <li style="margin-bottom:12px;">
+                <b>Пропускаем саму клетку</b>
+                <pre class="code">if (dr == 0 &amp;&amp; dc == 0) {
+    continue;
+}</pre>
+                <p style="margin:0;">Если оба смещения равны нулю, координаты указывают на текущую клетку, а не на
+                    соседа. Команда <code>continue</code> пропускает оставшуюся часть текущего шага цикла и переходит к
+                    следующему. Саму клетку считать не нужно.</p>
+                <div class="visual-example">
+                    <p class="visual-title">Центральную клетку пропускаем</p>
+                    <div class="visual-row">
+                        <div class="mini-grid small-3" aria-label="Восемь соседей и пропущенная центральная клетка">
+                            <span class="mini-cell neighbor">↖</span><span class="mini-cell neighbor">↑</span><span
+                                class="mini-cell neighbor">↗</span>
+                            <span class="mini-cell neighbor">←</span><span class="mini-cell skipped">×</span><span
+                                class="mini-cell neighbor">→</span>
+                            <span class="mini-cell neighbor">↙</span><span class="mini-cell neighbor">↓</span><span
+                                class="mini-cell neighbor">↘</span>
+                        </div>
+                        <div class="visual-labels">
+                            <b>dr = 0</b><span>и</span><b>dc = 0</b>
+                            <span style="color:var(--wrong);font-weight:700;">continue - пропустить центр</span>
+                            <span>Остальные 8 клеток проверяем.</span>
+                        </div>
+                    </div>
+                    <div class="visual-legend">
+                        <span><i class="visual-dot neighbor"></i> сосед</span>
+                        <span><i class="visual-dot skipped"></i> текущая клетка - пропускаем</span>
+                    </div>
+                </div>
+            </li>
+            <li style="margin-bottom:12px;">
+                <b>Вычисляем координаты соседа</b>
+                <pre class="code">int nr = r + dr;
+int nc = c + dc;</pre>
+                <p style="margin:0;">Находим строку <code>nr</code> и столбец <code>nc</code> соседней клетки. Например,
+                    если <code>dr</code> равно -1, сосед находится на строку выше. Если <code>dc</code> равно 1, сосед
+                    находится на столбец правее.</p>
+                <div class="visual-example">
+                    <p class="visual-title">Пример вычисления координат</p>
+                    <div class="coord-example">
+                        <span class="coord-chip">r = 2, c = 3</span>
+                        <span class="coord-arrow">+</span>
+                        <span class="coord-chip">dr = -1, dc = 1</span>
+                        <span class="coord-arrow">→</span>
+                        <span class="coord-chip">nr = 1, nc = 4</span>
+                    </div>
+                    <div class="visual-row" style="margin-top:10px;">
+                        <div class="mini-grid" aria-label="На поле показана исходная клетка и сосед выше и правее">
+                            <span class="mini-cell">0,0</span><span class="mini-cell">0,1</span><span class="mini-cell">0,2</span><span
+                                class="mini-cell">0,3</span><span class="mini-cell">0,4</span>
+                            <span class="mini-cell">1,0</span><span class="mini-cell">1,1</span><span class="mini-cell">1,2</span><span
+                                class="mini-cell">1,3</span><span class="mini-cell neighbor">1,4</span>
+                            <span class="mini-cell">2,0</span><span class="mini-cell">2,1</span><span class="mini-cell">2,2</span><span
+                                class="mini-cell current">2,3</span><span class="mini-cell">2,4</span>
+                            <span class="mini-cell">3,0</span><span class="mini-cell">3,1</span><span class="mini-cell">3,2</span><span
+                                class="mini-cell">3,3</span><span class="mini-cell">3,4</span>
+                            <span class="mini-cell">4,0</span><span class="mini-cell">4,1</span><span class="mini-cell">4,2</span><span
+                                class="mini-cell">4,3</span><span class="mini-cell">4,4</span>
+                        </div>
+                        <div class="visual-labels">
+                            <span><b>Зелёная:</b> текущая клетка (2, 3).</span>
+                            <span><b>Жёлтая:</b> сосед (1, 4).</span>
+                            <span>На одну строку выше и на один столбец правее.</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li style="margin-bottom:12px;">
+                <b>Проверяем, что сосед находится внутри поля</b>
+                <pre class="code">isInside(nr, nc)</pre>
+                <p style="margin:0;">Вызываем метод <code>isInside()</code>, передавая ему координаты найденного соседа.
+                    Он проверяет, не вышли ли мы за границы игрового поля. Это особенно важно для клеток у краёв и в
+                    углах поля.</p>
+            </li>
+            <li style="margin-bottom:12px;">
+                <b>Проверяем, есть ли мина в соседней клетке</b>
+                <pre class="code">cells[nr][nc].isMine()</pre>
+                <p style="margin:0;">Обращаемся к соседней клетке и вызываем <code>isMine()</code>. Метод возвращает
+                    <code>true</code>, если в клетке есть мина, и <code>false</code>, если её нет. Вместе с проверкой
+                    границ это условие выглядит так:</p>
+                <pre class="code">if (isInside(nr, nc) &amp;&amp; cells[nr][nc].isMine()) {
+    ...
+}</pre>
+                <p style="margin:0;">Оператор <code>&amp;&amp;</code> означает «И»: сосед должен находиться внутри поля
+                    и содержать мину.</p>
+            </li>
+            <li style="margin-bottom:12px;">
+                <b>Увеличиваем счётчик</b>
+                <pre class="code">count++;</pre>
+                <p style="margin:0;">Если в соседней клетке обнаружена мина, увеличиваем количество найденных мин на
+                    единицу. Запись <code>count++</code> означает то же самое, что <code>count = count + 1</code>.</p>
+            </li>
+            <li>
+                <b>Сохраняем результат в текущую клетку</b>
+                <pre class="code">cells[r][c].setNeighbors(count);</pre>
+                <p style="margin:0;">Когда все соседи проверены, записываем итоговое количество мин в текущую клетку.
+                    Метод <code>setNeighbors()</code> сохраняет число в поле <code>neighbors</code> объекта
+                    <code>Cell</code>.</p>
+            </li>
+        </ol>
+        <p class="q-hint" style="margin:0;">
+            <b>Важно:</b> сначала программа должна расставить мины с помощью <code>placeMines()</code>,
+            и только потом вызывать <code>countNeighbors()</code>. Иначе подсчёт будет выполнен до появления мин.
+        </p>
+    </div>
+
+
+    <div class="card">
+        <div class="q-head">
+            <span class="q-num">i</span>
+            <span class="q-text">Как программа считает мины вокруг каждой клетки</span>
+        </div>
+            <h3></h3>
+            <p class="mine-demo-intro">
+                На поле 5 × 5 спрятано ровно 10 мин. Серые клетки вокруг поля - это область за его границами:
+                программа проверяет координаты соседей, но не обращается к таким клеткам как к клеткам поля.
+                Нажимай «Следующий шаг», чтобы проследить обход.
+            </p>
+            <div class="mine-demo-grid-wrap">
+                <div class="mine-demo-grid" id="mineDemoGrid"
+                     aria-label="Поле 5 на 5 с дополнительными клетками за границами"></div>
+            </div>
+            <div class="mine-demo-status" id="mineDemoStatus" aria-live="polite">
+                Начинаем с клетки в левом верхнем углу. Программа будет идти по строкам слева направо, сверху вниз.
+            </div>
+            <div class="mine-demo-controls">
+                <button type="button" id="mineDemoNext">Следующий шаг</button>
+                <button type="button" id="mineDemoAuto">Автоматически</button>
+                <button type="button" class="secondary" id="mineDemoReset">Сначала</button>
+            </div>
+            <div class="mine-demo-legend">
+                <span><i class="mine-demo-key mine"></i> мина</span>
+                <span><i class="mine-demo-key current"></i> клетка, для которой считаем</span>
+                <span><i class="mine-demo-key neighbor"></i> проверяемый сосед</span>
+                <span><i class="mine-demo-key done"></i> число уже записано</span>
+            </div>
+            <p class="visual-note">После проверки всех соседей найденное количество мин записывается в клетку. Затем
+                программа переходит к следующей клетке.</p>
+    </div>
+
+    <div class="card">
+        <div class="q-head">
+            <span class="q-num">1</span>
+            <span class="q-text">Код класса Board</span>
+        </div>
+        <div class="code-area" id="codeArea"></div>
+
+        <div class="actions-bar">
+            <div class="actions">
+                <button id="submitBtn" type="button">Проверить</button>
+                <button id="resetBtn" type="button">Сбросить</button>
+            </div>
+            <div id="resultLine" class="result-line"></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="q-head">
+            <span class="q-num">2</span>
+            <span class="q-text">Набор блоков</span>
+        </div>
+        <div class="pool" id="pool"></div>
+    </div>
+
+    <footer>Разработка игр на Java / Домашнее задание №10 / 15.11.26 - 22.11.26</footer>
+</div>
+
+<script>
+    (function () {
+        "use strict";
+
+        /* ============================================================
+           ЭТАЛОННЫЙ КОД.
+           Каждый блок - отдельная строка (или несколько склеенных строк
+           через \n). Маркер «    |» = один уровень отступа.
+           ============================================================ */
+        const SOLUTION = [
+            // ---- метод isInside ------------------------------------------------
+            "public boolean isInside(int row, int col) {",
+            "    |return row >= 0 && row < rows && col >= 0 && col < cols;",
+            "}",
+
+            // ---- метод countNeighbors ------------------------------------------
+            "private void countNeighbors() {",
+            "    |for (int r = 0; r < rows; r++) {",
+            "    |    |for (int c = 0; c < cols; c++) {",
+            "    |    |    |int count = 0;",
+            "    |    |    |for (int dr = -1; dr <= 1; dr++) {",
+            "    |    |    |    |for (int dc = -1; dc <= 1; dc++) {",
+            "    |    |    |    |    |if (dr == 0 && dc == 0) continue;",
+            "    |    |    |    |    |int nr = r + dr;\n    |    |    |    |    |int nc = c + dc;",
+            "    |    |    |    |    |if (isInside(nr, nc) && cells[nr][nc].isMine()) {\n    |    |    |    |    |    |count++;\n    |    |    |    |    |}",
+            "    |    |    |    |}",
+            "    |    |    |}",
+            "    |    |    |cells[r][c].setNeighbors(count);",
+            "    |    |}",
+            "    |}",
+            "}"
+        ];
+
+        /* Лишние блоки-обманки (в правильный ответ не входят) */
+        const DISTRACTORS = [
+            "    |    |    |    |    |if (dr == 0 || dc == 0) continue;",
+            "    |    |    |    |    |int nr = r - dr;",
+            "    |    |    |cells[r][c].setNeighbors(count + 1);"
+        ];
+
+        /* ============================================================
+           DOM
+           ============================================================ */
+        const codeArea = document.getElementById('codeArea');
+        const pool = document.getElementById('pool');
+        const resultLine = document.getElementById('resultLine');
+
+        const slots = [];
+        let selected = null;   // выбранный (кликом) блок
+        let dragEl = null;   // перетаскиваемый блок
+
+        /* ============================================================
+           Утилиты
+           ============================================================ */
+        function escapeHtml(s) {
+            return s
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        /* Одна строка: ведущие пробелы и «|» → полупрозрачные маркеры */
+        function renderLine(line) {
+            let i = 0;
+            while (i < line.length && (line[i] === ' ' || line[i] === '|')) i++;
+            const prefix = line.slice(0, i);
+            const content = line.slice(i);
+
+            const styledPrefix = prefix.replace(
+                /\|/g,
+                '<span class="indent-guide">|</span>'
+            );
+
+            return styledPrefix + escapeHtml(content);
+        }
+
+        /* Блок целиком: каждая строка получает свои маркеры */
+        function renderBlockText(text) {
+            return text.split('\n').map(renderLine).join('\n');
+        }
+
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const tmp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tmp;
+            }
+            return arr;
+        }
+
+
+        /* Интерактивная визуализация подсчёта соседних мин */
+        (function initMineDemo() {
+            const grid = document.getElementById('mineDemoGrid');
+            const status = document.getElementById('mineDemoStatus');
+            const nextButton = document.getElementById('mineDemoNext');
+            const autoButton = document.getElementById('mineDemoAuto');
+            const resetButton = document.getElementById('mineDemoReset');
+            if (!grid || !status || !nextButton || !autoButton || !resetButton) return;
+
+            const SIZE = 5;
+            // Ровно 10 мин: [строка, столбец].
+            const mines = new Set(['0,1', '0,4', '1,3', '2,0', '2,2',
+                '3,4', '4,0', '4,1', '4,3', '4,4']);
+            const offsets = [];
+            for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                    // Проверяем все 9 позиций вокруг клетки, включая саму клетку.
+                    offsets.push([dr, dc]);
+                }
+            }
+
+            let row = 0, col = 0, neighborIndex = -1, count = 0;
+            let numbers = {}, timer = null, finished = false;
+
+            function key(r, c) {
+                return r + ',' + c;
+            }
+
+            function stopAuto() {
+                if (timer !== null) clearInterval(timer);
+                timer = null;
+                autoButton.textContent = 'Автоматически';
+            }
+
+            function draw() {
+                grid.innerHTML = '';
+                for (let r = -1; r <= SIZE; r++) {
+                    for (let c = -1; c <= SIZE; c++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'mine-demo-cell';
+                        const inside = r >= 0 && r < SIZE && c >= 0 && c < SIZE;
+                        if (!inside) {
+                            cell.classList.add('outside');
+                            cell.textContent = '·';
+                            const coord = document.createElement('span');
+                            coord.className = 'coord';
+                            coord.textContent = r + ',' + c;
+                            cell.appendChild(coord);
+                        } else {
+                            const k = key(r, c);
+                            if (mines.has(k)) {
+                                cell.classList.add('mine');
+                                cell.innerHTML = '<span class="symbol">✹</span>';
+                            } else if (Object.prototype.hasOwnProperty.call(numbers, k)) {
+                                cell.classList.add('done');
+                                cell.textContent = String(numbers[k]);
+                            }
+                            if (!finished && r === row && c === col) cell.classList.add('current');
+                        }
+                        grid.appendChild(cell);
+                    }
+                }
+                if (!finished && neighborIndex >= 0 && neighborIndex < offsets.length) {
+                    const [dr, dc] = offsets[neighborIndex];
+                    const nr = row + dr, nc = col + dc;
+                    // Все проверяемые позиции находятся в отображаемой сетке 7×7:
+                    // внешняя рамка показывает координаты за пределами поля.
+                    const target = grid.children[(nr + 1) * 7 + (nc + 1)];
+                    if (target) {
+                        if (nr < 0 || nr >= SIZE || nc < 0 || nc >= SIZE || (dr === 0 && dc === 0)) {
+                            target.classList.add('invalid-now');
+                        } else {
+                            target.classList.add('neighbor-now');
+                        }
+                    }
+                }
+            }
+
+            function finishCell() {
+                const oldRow = row, oldCol = col, savedCount = count;
+                numbers[key(row, col)] = count;
+                col++;
+                if (col === SIZE) {
+                    col = 0;
+                    row++;
+                }
+                count = 0;
+                neighborIndex = -1;
+                if (row === SIZE) {
+                    finished = true;
+                    stopAuto();
+                    status.textContent = 'Готово! Программа последовательно обработала все 25 клеток и записала числа. На поле было 10 мин.';
+                } else {
+                    status.textContent = 'Все соседи клетки (' + oldRow + ', ' + oldCol + ') проверены. Найдено мин: ' +
+                        savedCount + '. Число записано в клетку. Переходим к (' + row + ', ' + col + ').';
+                }
+            }
+
+            function step() {
+                if (finished) {
+                    stopAuto();
+                    return;
+                }
+                if (neighborIndex === offsets.length - 1) {
+                    finishCell();
+                    draw();
+                    return;
+                }
+                neighborIndex++;
+                const [dr, dc] = offsets[neighborIndex];
+                const nr = row + dr, nc = col + dc;
+                if (nr < 0 || nr >= SIZE || nc < 0 || nc >= SIZE) {
+                    status.textContent = 'Клетка (' + row + ', ' + col + '): проверяем координаты (' + nr + ', ' + nc +
+                        '), но они за границей поля. Эта позиция подсвечена красным - её пропускаем.';
+                } else if (dr === 0 && dc === 0) {
+                    status.textContent = 'Координаты (' + nr + ', ' + nc + ') указывают на саму проверяемую клетку. Она подсвечена красным - саму себя не считаем соседом.';
+                } else if (mines.has(key(nr, nc))) {
+                    count++;
+                    status.textContent = 'Клетка (' + row + ', ' + col + '): сосед (' + nr + ', ' + nc +
+                        ') - мина. Увеличиваем счётчик: теперь ' + count + '.';
+                } else {
+                    status.textContent = 'Клетка (' + row + ', ' + col + '): сосед (' + nr + ', ' + nc +
+                        ') проверен - мины нет. Счётчик остаётся ' + count + '.';
+                }
+                draw();
+            }
+
+            function reset() {
+                stopAuto();
+                row = 0;
+                col = 0;
+                neighborIndex = -1;
+                count = 0;
+                numbers = {};
+                finished = false;
+                status.textContent = 'Начинаем с клетки (0, 0). Проверяем её соседей по очереди. После девяти проверок (включая саму клетку) запишем найденное число.';
+                draw();
+            }
+
+            nextButton.addEventListener('click', step);
+            autoButton.addEventListener('click', function () {
+                if (timer !== null) stopAuto();
+                else if (!finished) {
+                    autoButton.textContent = 'Остановить';
+                    timer = setInterval(step, 650);
+                }
+            });
+            resetButton.addEventListener('click', reset);
+            reset();
+        })();
+
+
+        /* ============================================================
+           1. Строим слоты и заголовки методов
+           ============================================================ */
+        function addMethodLabel(text) {
+            const label = document.createElement('div');
+            label.className = 'method-label';
+            label.textContent = text;
+            codeArea.appendChild(label);
+        }
+
+        SOLUTION.forEach(function (_, i) {
+            if (i === 0) addMethodLabel('метод isInside');
+            if (i === 3) addMethodLabel('метод countNeighbors');
+
+            const slot = document.createElement('div');
+            slot.className = 'slot';
+            slot.dataset.index = String(i);
+
+            const inner = document.createElement('div');
+            inner.className = 'slot-inner';
+            slot.appendChild(inner);
+
+            codeArea.appendChild(slot);
+            slots.push(slot);
+        });
+
+        /* ============================================================
+           2. Готовим блоки для «Набора»
+           ============================================================ */
+        const defs = [];
+        SOLUTION.forEach(function (text, i) {
+            defs.push({id: 's' + i, text: text});
+        });
+        DISTRACTORS.forEach(function (text, i) {
+            defs.push({id: 'd' + i, text: text});
+        });
+        shuffle(defs);
+
+        defs.forEach(function (def) {
+            const el = document.createElement('div');
+            el.className = 'block';
+            el.draggable = true;
+            el.dataset.id = def.id;
+            el.dataset.text = def.text;               // сырой текст для проверки
+            el.innerHTML = renderBlockText(def.text); // красивый рендер
+            pool.appendChild(el);
+        });
+
+        /* ============================================================
+           3. Вспомогательные операции со слотами
+           ============================================================ */
+        function clearMarks() {
+            slots.forEach(function (s) {
+                s.classList.remove('correct-mark', 'wrong-mark', 'missing-mark');
+            });
+            resultLine.textContent = '';
+            resultLine.className = 'result-line';
+        }
+
+        function clearSelection() {
+            if (selected) selected.classList.remove('selected');
+            selected = null;
+        }
+
+        function placeBlock(blockEl, index) {
+            const inner = slots[index].querySelector('.slot-inner');
+            const occupant = inner.querySelector('.block');
+            if (occupant && occupant !== blockEl) {
+                pool.appendChild(occupant);          // вытесненный - назад в набор
+            }
+            inner.appendChild(blockEl);
+            clearMarks();
+        }
+
+        function returnToPool(blockEl) {
+            pool.appendChild(blockEl);
+            clearMarks();
+        }
+
+        /* ============================================================
+           4. Клик: выбрать блок / положить в слот
+           ============================================================ */
+        pool.addEventListener('click', function (e) {
+            const block = e.target.closest('.block');
+            if (block) {
+                if (selected === block) {
+                    clearSelection();
+                    return;
+                }
+                clearSelection();
+                selected = block;
+                block.classList.add('selected');
+            } else {
+                clearSelection();
+            }
+        });
+
+        codeArea.addEventListener('click', function (e) {
+            const slot = e.target.closest('.slot');
+            if (!slot) return;
+
+            const index = Number(slot.dataset.index);
+            const occupant = slot.querySelector('.block');
+
+            if (selected) {
+                if (selected === occupant) {          // клик по «своему» блоку в слоте
+                    returnToPool(selected);
+                    clearSelection();
+                } else {
+                    placeBlock(selected, index);
+                    clearSelection();
+                }
+                return;
+            }
+
+            if (occupant) returnToPool(occupant);   // клик по блоку в слоте - вернуть
+        });
+
+        /* ============================================================
+           5. Drag & Drop (десктоп)
+           ============================================================ */
+        document.addEventListener('dragstart', function (e) {
+            const block = e.target && e.target.closest ? e.target.closest('.block') : null;
+            if (!block) return;
+            dragEl = block;
+            block.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            try {
+                e.dataTransfer.setData('text/plain', block.dataset.id);
+            } catch (err) {
+            }
+        });
+
+        document.addEventListener('dragend', function () {
+            if (dragEl) dragEl.classList.remove('dragging');
+            dragEl = null;
+            slots.forEach(function (s) {
+                s.classList.remove('over');
+            });
+        });
+
+        slots.forEach(function (slot, index) {
+            slot.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                slot.classList.add('over');
+            });
+            slot.addEventListener('dragleave', function (e) {
+                if (!slot.contains(e.relatedTarget)) slot.classList.remove('over');
+            });
+            slot.addEventListener('drop', function (e) {
+                e.preventDefault();
+                slot.classList.remove('over');
+                if (dragEl) {
+                    placeBlock(dragEl, index);
+                    clearSelection();
+                }
+            });
+        });
+
+        pool.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+        });
+        pool.addEventListener('drop', function (e) {
+            e.preventDefault();
+            if (dragEl) {
+                returnToPool(dragEl);
+                clearSelection();
+            }
+        });
+
+        /* ============================================================
+           6. Проверка
+           ============================================================ */
+        document.getElementById('submitBtn').addEventListener('click', function () {
+            let correct = 0;
+            const total = slots.length;
+
+            slots.forEach(function (slot, i) {
+                slot.classList.remove('correct-mark', 'wrong-mark', 'missing-mark');
+                const block = slot.querySelector('.block');
+
+                if (!block) {
+                    slot.classList.add('missing-mark');
+                    return;
+                }
+                if (block.dataset.text === SOLUTION[i]) {
+                    slot.classList.add('correct-mark');
+                    correct++;
+                } else {
+                    slot.classList.add('wrong-mark');
+                }
+            });
+
+            if (correct === total) {
+                resultLine.className = 'result-line ok';
+                resultLine.textContent = 'Готово! Все ' + total + ' блоков на своих местах 🎉';
+            } else {
+                resultLine.className = 'result-line bad';
+                resultLine.textContent = 'Верно ' + correct + ' из ' + total +
+                    '. Зелёные - правильно, красные - ошибка или пустой слот.';
+            }
+        });
+
+        /* ============================================================
+           7. Сброс
+           ============================================================ */
+        document.getElementById('resetBtn').addEventListener('click', function () {
+            clearSelection();
+
+            document.querySelectorAll('.block').forEach(function (b) {
+                b.classList.remove('dragging');
+                pool.appendChild(b);
+            });
+
+            // перемешать набор заново
+            const kids = Array.prototype.slice.call(pool.children);
+            shuffle(kids).forEach(function (el) {
+                pool.appendChild(el);
+            });
+
+            slots.forEach(function (s) {
+                s.classList.remove('correct-mark', 'wrong-mark', 'missing-mark', 'over');
+            });
+            resultLine.textContent = '';
+            resultLine.className = 'result-line';
+        });
+
+    })();
+</script>
+</body>
+</html>
