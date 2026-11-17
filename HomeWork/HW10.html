@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Собери код · countNeighbors (Сапёр)</title>
+    <title>Домашнее задание №10</title>
 
     <!-- ============================================================
          СТИЛИ СТРАНИЦЫ
@@ -443,9 +443,6 @@
             flex-direction: column;
             align-items: flex-start;
             gap: 6px;
-            max-height: 55vh;
-            overflow-y: auto;
-            overflow-x: hidden;
             padding: 6px;
             border-radius: 10px;
             background: var(--option-bg);
@@ -549,6 +546,66 @@
 
         .mini-grid.small-3 {
             grid-template-columns: repeat(3, 42px);
+        }
+
+        .mini-grid.with-outside {
+            grid-template-columns: repeat(7, 34px);
+        }
+
+        /* Клетки за границей поля */
+        .mini-cell.outside {
+            position: relative;
+            background: var(--bg);
+            border-style: dashed;
+            color: var(--text-soft);
+            opacity: .72;
+        }
+
+        .mini-cell.outside .coord {
+            position: absolute;
+            top: 1px;
+            left: 3px;
+            font-size: 8px;
+            opacity: .7;
+        }
+
+        .mini-grid.with-outside {
+            grid-template-columns: repeat(7, 28px);
+        }
+
+        /* --- Интерактивный пример isInside ------------------------------- */
+        .mini-grid.interactive .mini-cell {
+            cursor: pointer;
+            transition: transform .08s ease, background .15s ease, border-color .15s ease;
+        }
+
+        .mini-grid.interactive .mini-cell:hover {
+            transform: scale(1.06);
+        }
+
+        /* Клетка внутри поля: зелёный */
+        .mini-grid.interactive .mini-cell.picked-ok {
+            background: var(--correct-bg);
+            border: 2px solid var(--correct);
+            color: var(--correct);
+            font-weight: 700;
+            opacity: 1;
+            transform: scale(1.06);
+        }
+
+        /* Клетка за границей поля: красный пунктир */
+        .mini-grid.interactive .mini-cell.picked-bad {
+            background: var(--wrong-bg);
+            border: 2px dashed var(--wrong);
+            color: var(--wrong);
+            font-weight: 700;
+            opacity: 1;
+            transform: scale(1.06);
+        }
+
+        /* Точка-подсказка для примера */
+        .mini-grid.interactive .mini-cell.outside .coord {
+            pointer-events: none;
         }
 
         .mini-cell {
@@ -785,13 +842,18 @@
         }
 
         .mine-demo-status {
-            min-height: 52px;
+            min-height: 170px;
             margin: 10px 0;
             padding: 9px 11px;
             border-radius: 8px;
             background: var(--card-bg);
             border: 1px solid var(--border);
             font-size: 13px;
+        }
+
+        .mine-demo-status > div {
+            padding: 1px 0;
+            line-height: 1.45;
         }
 
         .mine-demo-controls {
@@ -855,6 +917,11 @@
             border-color: var(--correct);
         }
 
+        .mine-demo-key.skipped {
+            background: var(--wrong-bg);
+            border-color: var(--wrong);
+        }
+
         @media (max-width: 420px) {
             .mine-demo-grid {
                 gap: 3px;
@@ -867,6 +934,56 @@
             }
         }
 
+        /* --- Подсказка «это интерактивный пример» ----------------------- */
+        .visual-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 12px;
+            padding: 6px 12px 6px 8px;
+            border: 1px dashed var(--accent);
+            border-radius: 999px;
+            background: var(--option-bg);
+            color: var(--text-soft);
+            font-size: 12.5px;
+            line-height: 1.3;
+        }
+
+        .visual-hint-emoji {
+            display: inline-block;
+            font-size: 18px;
+            line-height: 1;
+            animation: visual-hint-bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes visual-hint-bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50%      { transform: translateY(-3px) rotate(-10deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .visual-hint-emoji { animation: none; }
+        }
+
+        .section-chips {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+            margin: 0 0 10px;
+        }
+
+        .section-chips span {
+            padding: 6px 12px;
+            border: 1px solid var(--accent);
+            border-radius: 999px;
+            background: var(--option-bg);
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.4;
+            max-width: 100%;
+        }
     </style>
 </head>
 
@@ -884,33 +1001,37 @@
             <span class="q-num">?</span>
             <span class="q-text">Что будет в задании</span>
         </div>
-        <p class="q-hint" style="margin:0 0 8px 0;">
-            Перед решением интерактивной задачи обязательно прочитай описание частей кода ниже:
-            оно поможет понять, что делает каждый метод и зачем нужны отдельные команды.
+        <p class="q-hint" style="margin:0 0 8px 0;">Задание состоит из трёх основных разделов:</p>
+        <p></p><p></p>
+        <p class="section-chips">
+            <span>«Разбор алгоритма»</span>
         </p>
         <p class="q-hint" style="margin:0 0 8px 0;">
-            Затем перетащи блок из «Набора блоков» в нужный слот кода. На телефоне - просто нажми
-            на блок, а затем на слот. Чтобы вернуть блок обратно в набор, нажми на него внутри слота.
+            В разделе будет подробное объяснение двух методов класса <code>Board</code> (<b>isInside</b> и <b>countNeighbors</b>), которые заполняют поле нашего Сапёра числами.
+        </p>
+        <p></p><p></p>
+        <p class="section-chips">
+            <span>«Как программа считает мины вокруг каждой клетки»</span>
         </p>
         <p class="q-hint" style="margin:0 0 8px 0;">
-            Полупрозрачные чёрточки <span style="font-family:monospace;opacity:.55;">|</span>
-            в начале строк показывают уровень вложенности (один маркер = 4 пробела отступа).
+            Интерактивная визуализация на поле 5 × 5 с 10 минами, где вы сможете посмотреть визуальное представление того, как работает алгоритм.
         </p>
-        <p class="q-hint" style="margin:0;">
-            Нажми «Проверить»: правильно размещённые блоки станут зелёными, неправильные и
-            пустые слоты - красными. В наборе есть <b>лишние блоки-обманки</b> - их использовать не нужно.
+        <p></p><p></p>
+        <p class="section-chips">
+            <span>«Основное задание»</span>
         </p>
-        <div class="legend">
-            <span><i class="sw-ok"></i> блок на своём месте</span>
-            <span><i class="sw-bad"></i> блок не на своём месте / пусто</span>
-            <span><i class="sw-pipe">|</i> маркер отступа</span>
-        </div>
+        <p class="q-hint" style="margin:0 0 8px 0;">
+            В основном задании вам нужно будет собрать код описанных методов из готовых блоков: перетащить (на телефоне - нажать)
+            фрагменты из «Набора блоков» в нужные слоты, расставив их в правильном порядке и с
+            правильными отступами. Среди блоков есть лишние обманки. Кнопка «Проверить» подсветит
+            верные слоты зелёным, а ошибки и пустые слоты - красным.
+        </p>
     </div>
 
     <div class="card">
         <div class="q-head">
             <span class="q-num">i</span>
-            <span class="q-text">Из чего состоит код?</span>
+            <span class="q-text">Разбор алгоритма</span>
         </div>
         <p class="q-hint" style="margin:0 0 14px 0;">
             Сначала разберёмся, как программа находит соседние мины. В коде два метода:
@@ -927,28 +1048,83 @@
         </p>
         <div class="visual-example">
             <p class="visual-title">Пример: поле размером 5 × 5</p>
+            <div class="visual-hint">
+                <span class="visual-hint-emoji" id="insideHintEmoji" aria-hidden="true">👇</span>
+                <span>Это интерактивный пример - нажмите на любую клетку</span>
+            </div>
             <div class="visual-row">
-                <div class="mini-grid" aria-label="Поле 5 на 5: клетка с координатами 2, 3 находится внутри">
-                    <span class="mini-cell">0,0</span><span class="mini-cell">0,1</span><span
-                        class="mini-cell">0,2</span><span class="mini-cell">0,3</span><span class="mini-cell">0,4</span>
-                    <span class="mini-cell">1,0</span><span class="mini-cell">1,1</span><span
-                        class="mini-cell">1,2</span><span class="mini-cell">1,3</span><span class="mini-cell">1,4</span>
-                    <span class="mini-cell">2,0</span><span class="mini-cell">2,1</span><span
-                        class="mini-cell">2,2</span><span class="mini-cell current">2,3</span><span class="mini-cell">2,4</span>
-                    <span class="mini-cell">3,0</span><span class="mini-cell">3,1</span><span
-                        class="mini-cell">3,2</span><span class="mini-cell">3,3</span><span class="mini-cell">3,4</span>
-                    <span class="mini-cell">4,0</span><span class="mini-cell">4,1</span><span
-                        class="mini-cell">4,2</span><span class="mini-cell">4,3</span><span class="mini-cell">4,4</span>
+                <div class="mini-grid with-outside interactive" id="insideExampleGrid"
+                     aria-label="Поле 5 × 5. Кликните по клетке, чтобы проверить isInside">
+
+                    <!-- r = -1: за верхней границей -->
+                    <span class="mini-cell outside" data-row="-1" data-col="-1"><span class="coord">-1,-1</span>·</span>
+                    <span class="mini-cell outside" data-row="-1" data-col="0"><span class="coord">-1,0</span>·</span>
+                    <span class="mini-cell outside" data-row="-1" data-col="1"><span class="coord">-1,1</span>·</span>
+                    <span class="mini-cell outside" data-row="-1" data-col="2"><span class="coord">-1,2</span>·</span>
+                    <span class="mini-cell outside" data-row="-1" data-col="3"><span class="coord">-1,3</span>·</span>
+                    <span class="mini-cell outside" data-row="-1" data-col="4"><span class="coord">-1,4</span>·</span>
+                    <span class="mini-cell outside" data-row="-1" data-col="5"><span class="coord">-1,5</span>·</span>
+
+                    <!-- r = 0 -->
+                    <span class="mini-cell outside" data-row="0" data-col="-1"><span class="coord">0,-1</span>·</span>
+                    <span class="mini-cell" data-row="0" data-col="0">0,0</span>
+                    <span class="mini-cell" data-row="0" data-col="1">0,1</span>
+                    <span class="mini-cell" data-row="0" data-col="2">0,2</span>
+                    <span class="mini-cell" data-row="0" data-col="3">0,3</span>
+                    <span class="mini-cell" data-row="0" data-col="4">0,4</span>
+                    <span class="mini-cell outside" data-row="0" data-col="5"><span class="coord">0,5</span>·</span>
+
+                    <!-- r = 1 -->
+                    <span class="mini-cell outside" data-row="1" data-col="-1"><span class="coord">1,-1</span>·</span>
+                    <span class="mini-cell" data-row="1" data-col="0">1,0</span>
+                    <span class="mini-cell" data-row="1" data-col="1">1,1</span>
+                    <span class="mini-cell" data-row="1" data-col="2">1,2</span>
+                    <span class="mini-cell" data-row="1" data-col="3">1,3</span>
+                    <span class="mini-cell" data-row="1" data-col="4">1,4</span>
+                    <span class="mini-cell outside" data-row="1" data-col="5"><span class="coord">1,5</span>·</span>
+
+                    <!-- r = 2 -->
+                    <span class="mini-cell outside" data-row="2" data-col="-1"><span class="coord">2,-1</span>·</span>
+                    <span class="mini-cell" data-row="2" data-col="0">2,0</span>
+                    <span class="mini-cell" data-row="2" data-col="1">2,1</span>
+                    <span class="mini-cell" data-row="2" data-col="2">2,2</span>
+                    <span class="mini-cell picked-ok" data-row="2" data-col="3">2,3</span>
+                    <span class="mini-cell" data-row="2" data-col="4">2,4</span>
+                    <span class="mini-cell outside" data-row="2" data-col="5"><span class="coord">2,5</span>·</span>
+
+                    <!-- r = 3 -->
+                    <span class="mini-cell outside" data-row="3" data-col="-1"><span class="coord">3,-1</span>·</span>
+                    <span class="mini-cell" data-row="3" data-col="0">3,0</span>
+                    <span class="mini-cell" data-row="3" data-col="1">3,1</span>
+                    <span class="mini-cell" data-row="3" data-col="2">3,2</span>
+                    <span class="mini-cell" data-row="3" data-col="3">3,3</span>
+                    <span class="mini-cell" data-row="3" data-col="4">3,4</span>
+                    <span class="mini-cell outside" data-row="3" data-col="5"><span class="coord">3,5</span>·</span>
+
+                    <!-- r = 4 -->
+                    <span class="mini-cell outside" data-row="4" data-col="-1"><span class="coord">4,-1</span>·</span>
+                    <span class="mini-cell" data-row="4" data-col="0">4,0</span>
+                    <span class="mini-cell" data-row="4" data-col="1">4,1</span>
+                    <span class="mini-cell" data-row="4" data-col="2">4,2</span>
+                    <span class="mini-cell" data-row="4" data-col="3">4,3</span>
+                    <span class="mini-cell" data-row="4" data-col="4">4,4</span>
+                    <span class="mini-cell outside" data-row="4" data-col="5"><span class="coord">4,5</span>·</span>
+
+                    <!-- r = 5: за нижней границей -->
+                    <span class="mini-cell outside" data-row="5" data-col="-1"><span class="coord">5,-1</span>·</span>
+                    <span class="mini-cell outside" data-row="5" data-col="0"><span class="coord">5,0</span>·</span>
+                    <span class="mini-cell outside" data-row="5" data-col="1"><span class="coord">5,1</span>·</span>
+                    <span class="mini-cell outside" data-row="5" data-col="2"><span class="coord">5,2</span>·</span>
+                    <span class="mini-cell outside" data-row="5" data-col="3"><span class="coord">5,3</span>·</span>
+                    <span class="mini-cell outside" data-row="5" data-col="4"><span class="coord">5,4</span>·</span>
+                    <span class="mini-cell outside" data-row="5" data-col="5"><span class="coord">5,5</span>·</span>
                 </div>
                 <div class="visual-labels">
-                    <b>row = 2, col = 3</b>
-                    <span>Координаты от 0 до 4.</span>
-                    <span style="color:var(--correct);font-weight:700;">Клетка внутри поля - true</span>
-                    <span style="color:var(--wrong);">Например, row = -1 - снаружи, false</span>
+                    <b id="insideExampleCoord">row = 2, col = 3</b>
+                    <span>Поле 5 × 5, координаты от 0 до 4.</span>
+                    <span id="insideExampleVerdict">isInside(2, 3) → <b style="color:var(--correct)">true - клетка внутри поля</b></span>
                 </div>
             </div>
-            <p class="visual-note">Зелёная клетка существует на поле. Координата -1 или 5 уже указывает за его
-                границы.</p>
         </div>
         <ul style="margin:0 0 12px 20px; padding:0;">
             <li><b>public boolean</b> означает, что метод доступен из других классов и возвращает ответ «да» или «нет».
@@ -970,7 +1146,7 @@
         <p class="q-hint" style="margin:0;">
             <b>Зачем это нужно?</b> У клеток на краю поля часть соседей находится за его пределами.
             Нельзя обращаться к таким клеткам: программа может завершиться с ошибкой. Перед проверкой соседа
-            мы сначала убедимся, что его координаты допустимы.
+            мы сначала убедимся, что его координаты находятся на игровом поле.
         </p>
 
         <h3 style="font-size:16px; margin:20px 0 6px;">2. Метод countNeighbors - считаем мины вокруг каждой клетки</h3>
@@ -1148,10 +1324,6 @@ int nc = c + dc;</pre>
                     <code>Cell</code>.</p>
             </li>
         </ol>
-        <p class="q-hint" style="margin:0;">
-            <b>Важно:</b> сначала программа должна расставить мины с помощью <code>placeMines()</code>,
-            и только потом вызывать <code>countNeighbors()</code>. Иначе подсчёт будет выполнен до появления мин.
-        </p>
     </div>
 
 
@@ -1160,12 +1332,17 @@ int nc = c + dc;</pre>
             <span class="q-num">i</span>
             <span class="q-text">Как программа считает мины вокруг каждой клетки</span>
         </div>
-            <h3></h3>
             <p class="mine-demo-intro">
                 На поле 5 × 5 спрятано ровно 10 мин. Серые клетки вокруг поля - это область за его границами:
-                программа проверяет координаты соседей, но не обращается к таким клеткам как к клеткам поля.
-                Нажимай «Следующий шаг», чтобы проследить обход.
+                программа проверяет координаты соседей, но не обращается к таким клеткам.
             </p>
+            <p class="mine-demo-intro">
+                Используйте кнопки «Следующий шаг» или «Автоматически», чтобы посмотреть, как алгоритм считает все клетки поля
+            </p>
+            <div class="visual-hint">
+                <span class="visual-hint-emoji" id="mineDemoHintEmoji" aria-hidden="true">👇</span>
+                <span>Это интерактивный пример - нажимайте кнопки под полем</span>
+            </div>
             <div class="mine-demo-grid-wrap">
                 <div class="mine-demo-grid" id="mineDemoGrid"
                      aria-label="Поле 5 на 5 с дополнительными клетками за границами"></div>
@@ -1183,14 +1360,59 @@ int nc = c + dc;</pre>
                 <span><i class="mine-demo-key current"></i> клетка, для которой считаем</span>
                 <span><i class="mine-demo-key neighbor"></i> проверяемый сосед</span>
                 <span><i class="mine-demo-key done"></i> число уже записано</span>
+                <span><i class="mine-demo-key skipped"></i> пропускаем клетку</span>
             </div>
-            <p class="visual-note">После проверки всех соседей найденное количество мин записывается в клетку. Затем
-                программа переходит к следующей клетке.</p>
+    </div>
+
+    <div class="card">
+        <div class="q-head">
+            <span class="q-num">✅</span>
+            <span class="q-text">Основное задание</span>
+        </div>
+        <p class="q-hint" style="margin:0 0 8px 0;">
+            В основном здании вам необходимо собрать по частям описанный алгоритм подсчета количества мин для каждой клетки. Для решения задачи у вас есть 2 поля: «Набор блоков» и «Код класса Board»
+        </p>
+        <p class="q-hint" style="margin:0 0 8px 0;">
+            <b>«Набор блоков»</b> - это все фрагменты кода, из которых нужно собрать два метода:
+            <code>isInside()</code> и <code>countNeighbors()</code>. Выбирайте подходящий фрагмент
+            и переносите его в пустое место в коде класса <code>Board</code>. Некоторые блоки содержат
+            сразу несколько строк, поэтому их нужно размещать целиком. В наборе также есть три лишних
+            блока-обманки - они похожи на правильные команды, но для решения не подходят.
+        </p>
+        <p class="q-hint" style="margin:0 0 8px 0;">
+            <b>«Код класса Board»</b> - это заготовка класса, в которой уже показано, где должны
+            находиться методы и их части. Ваша задача - заполнить пустые слоты так, чтобы получился
+            правильный код. Сначала соберите проверку границ <code>isInside()</code>, затем метод
+            <code>countNeighbors()</code>, который перебирает клетки поля, проверяет их соседей и
+            записывает количество найденных мин. Обращайте внимание не только на порядок блоков,
+            но и на то, внутри каких циклов и условий они должны располагаться.
+        </p>
+        <p class="q-hint" style="margin:0 0 8px 0;">
+            <b>Полупрозрачные чёрточки <span style="font-family:monospace;opacity:.55;">|</span></b>
+            в начале строк показывают уровень вложенности - они позволят вам понять, какие части кода где располагаются относительно друг друга.
+        </p>
+        <p class="q-hint" style="margin:0;">
+            Для проверки решения используйте кнопку «Проверить»: правильно размещённые блоки станут зелёными, неправильные и
+            пустые слоты - красными. В наборе есть <b>лишние блоки-обманки</b> - их использовать не нужно.
+        </p>
+        <div class="legend">
+            <span><i class="sw-ok"></i> блок на своём месте</span>
+            <span><i class="sw-bad"></i> блок не на своём месте / пусто</span>
+            <span><i class="sw-pipe">|</i> маркер отступа</span>
+        </div>
     </div>
 
     <div class="card">
         <div class="q-head">
             <span class="q-num">1</span>
+            <span class="q-text">Набор блоков</span>
+        </div>
+        <div class="pool" id="pool"></div>
+    </div>
+
+    <div class="card">
+        <div class="q-head">
+            <span class="q-num">2</span>
             <span class="q-text">Код класса Board</span>
         </div>
         <div class="code-area" id="codeArea"></div>
@@ -1202,14 +1424,6 @@ int nc = c + dc;</pre>
             </div>
             <div id="resultLine" class="result-line"></div>
         </div>
-    </div>
-
-    <div class="card">
-        <div class="q-head">
-            <span class="q-num">2</span>
-            <span class="q-text">Набор блоков</span>
-        </div>
-        <div class="pool" id="pool"></div>
     </div>
 
     <footer>Разработка игр на Java / Домашнее задание №10 / 15.11.26 - 22.11.26</footer>
@@ -1306,6 +1520,40 @@ int nc = c + dc;</pre>
             return arr;
         }
 
+        /* Собираем HTML для панели статуса по единому шаблону */
+        function buildStatusHTML(r, c, dr, dc, nr, nc, outOfBounds, isSelf, hasMine, minesCount) {
+            const red   = 'style="color:var(--wrong);font-weight:700"';
+            const green = 'style="color:var(--correct);font-weight:700"';
+
+            const borderAnswer = outOfBounds
+                ? '<span ' + red   + '>Да - пропускаем</span>'
+                : '<span ' + green + '>Нет</span>';
+
+            let html =
+                '<div>Клетка: <b>(' + r + ', ' + c + ')</b></div>' +
+                '<div>Сосед клетки (смещение): <b>(' + dr + ', ' + dc + ')</b></div>' +
+                '<div>Сосед клетки (основные): <b>(' + nr + ', ' + nc + ')</b></div>' +
+                '<div>Сосед выходит за границы поля? ' + borderAnswer + '</div>';
+
+            // Дальше имеем смысл только если сосед внутри поля
+            if (!outOfBounds) {
+                const selfAnswer = isSelf
+                    ? '<span ' + red   + '>Да - пропускаем</span>'
+                    : '<span ' + green + '>Нет</span>';
+                html += '<div>Сосед - это сама клетка? ' + selfAnswer + '</div>';
+
+                // Строку про мину показываем, только если это настоящий сосед
+                if (!isSelf) {
+                    const mineAnswer = hasMine
+                        ? '<span ' + green + '>Да - считаем</span>'
+                        : '<span ' + red   + '>Нет - не считаем</span>';
+                    html += '<div>В клетке есть мина? ' + mineAnswer + '</div>';
+                }
+            }
+
+            html += '<div>Количество мин: <b>' + minesCount + '</b></div>';
+            return html;
+        }
 
         /* Интерактивная визуализация подсчёта соседних мин */
         (function initMineDemo() {
@@ -1315,6 +1563,16 @@ int nc = c + dc;</pre>
             const autoButton = document.getElementById('mineDemoAuto');
             const resetButton = document.getElementById('mineDemoReset');
             if (!grid || !status || !nextButton || !autoButton || !resetButton) return;
+
+            const hintEmoji = document.getElementById('mineDemoHintEmoji');
+            if (hintEmoji) {
+                const frames = ['👇', '🖱️', '⏭️', '🛑', '🔁'];
+                let frame = 0;
+                setInterval(function () {
+                    frame = (frame + 1) % frames.length;
+                    hintEmoji.textContent = frames[frame];
+                }, 850);
+            }
 
             const SIZE = 5;
             // Ровно 10 мин: [строка, столбец].
@@ -1395,13 +1653,17 @@ int nc = c + dc;</pre>
                 }
                 count = 0;
                 neighborIndex = -1;
+
                 if (row === SIZE) {
                     finished = true;
                     stopAuto();
-                    status.textContent = 'Готово! Программа последовательно обработала все 25 клеток и записала числа. На поле было 10 мин.';
+                    status.innerHTML =
+                        '<div>Готово!</div>';
                 } else {
-                    status.textContent = 'Все соседи клетки (' + oldRow + ', ' + oldCol + ') проверены. Найдено мин: ' +
-                        savedCount + '. Число записано в клетку. Переходим к (' + row + ', ' + col + ').';
+                    status.innerHTML =
+                        '<div>Клетка: <b>(' + oldRow + ', ' + oldCol + ')</b> - все 9 позиций проверены.</div>' +
+                        '<div>Количество мин: <b>' + savedCount + '</b> - число записано в клетку.</div>' +
+                        '<div>Переходим к клетке <b>(' + row + ', ' + col + ')</b>.</div>';
                 }
             }
 
@@ -1418,19 +1680,19 @@ int nc = c + dc;</pre>
                 neighborIndex++;
                 const [dr, dc] = offsets[neighborIndex];
                 const nr = row + dr, nc = col + dc;
-                if (nr < 0 || nr >= SIZE || nc < 0 || nc >= SIZE) {
-                    status.textContent = 'Клетка (' + row + ', ' + col + '): проверяем координаты (' + nr + ', ' + nc +
-                        '), но они за границей поля. Эта позиция подсвечена красным - её пропускаем.';
-                } else if (dr === 0 && dc === 0) {
-                    status.textContent = 'Координаты (' + nr + ', ' + nc + ') указывают на саму проверяемую клетку. Она подсвечена красным - саму себя не считаем соседом.';
-                } else if (mines.has(key(nr, nc))) {
+
+                const outOfBounds = (nr < 0 || nr >= SIZE || nc < 0 || nc >= SIZE);
+                const isSelf      = (dr === 0 && dc === 0);
+                // Мину ищем только если координаты вообще существуют на поле
+                const hasMine     = !outOfBounds && mines.has(key(nr, nc));
+
+                if (!outOfBounds && !isSelf && hasMine) {
                     count++;
-                    status.textContent = 'Клетка (' + row + ', ' + col + '): сосед (' + nr + ', ' + nc +
-                        ') - мина. Увеличиваем счётчик: теперь ' + count + '.';
-                } else {
-                    status.textContent = 'Клетка (' + row + ', ' + col + '): сосед (' + nr + ', ' + nc +
-                        ') проверен - мины нет. Счётчик остаётся ' + count + '.';
                 }
+
+                status.innerHTML = buildStatusHTML(
+                    row, col, dr, dc, nr, nc, outOfBounds, isSelf, hasMine, count
+                );
                 draw();
             }
 
@@ -1442,7 +1704,9 @@ int nc = c + dc;</pre>
                 count = 0;
                 numbers = {};
                 finished = false;
-                status.textContent = 'Начинаем с клетки (0, 0). Проверяем её соседей по очереди. После девяти проверок (включая саму клетку) запишем найденное число.';
+                status.innerHTML =
+                    '<div>Начинаем с клетки <b>(0, 0)</b>. Нажмите «Следующий шаг», ' +
+                    'чтобы проверить первого соседа.</div>';
                 draw();
             }
 
@@ -1688,6 +1952,92 @@ int nc = c + dc;</pre>
             resultLine.className = 'result-line';
         });
 
+    })();
+
+    /* ============================================================
+   Интерактивный пример isInside
+   ============================================================ */
+    (function initInsideExample() {
+        const grid = document.getElementById('insideExampleGrid');
+        const coordLabel = document.getElementById('insideExampleCoord');
+        const verdict = document.getElementById('insideExampleVerdict');
+        if (!grid || !coordLabel || !verdict) return;
+
+        const SIZE = 5;
+
+        grid.addEventListener('click', function (e) {
+            const cell = e.target.closest('.mini-cell');
+            if (!cell || !grid.contains(cell)) return;
+
+            const r = Number(cell.dataset.row);
+            const c = Number(cell.dataset.col);
+            if (Number.isNaN(r) || Number.isNaN(c)) return;
+
+            // Сбросить предыдущий выбор
+            grid.querySelectorAll('.picked-ok, .picked-bad').forEach(function (el) {
+                el.classList.remove('picked-ok', 'picked-bad');
+            });
+
+            const inside = r >= 0 && r < SIZE && c >= 0 && c < SIZE;
+            cell.classList.add(inside ? 'picked-ok' : 'picked-bad');
+
+            coordLabel.textContent = 'row = ' + r + ', col = ' + c;
+
+            if (inside) {
+                verdict.innerHTML =
+                    'isInside(' + r + ', ' + c + ') → ' +
+                    '<b style="color:var(--correct)">true - клетка внутри поля</b>';
+            } else {
+                verdict.innerHTML =
+                    'isInside(' + r + ', ' + c + ') → ' +
+                    '<b style="color:var(--wrong)">false - клетка за границей поля</b>';
+            }
+        });
+    })();
+
+    (function initInsideExample() {
+        const grid       = document.getElementById('insideExampleGrid');
+        const coordLabel = document.getElementById('insideExampleCoord');
+        const verdict    = document.getElementById('insideExampleVerdict');
+        const hintEmoji  = document.getElementById('insideHintEmoji');
+        if (!grid || !coordLabel || !verdict) return;
+
+        const SIZE = 5;
+
+        // --- Анимация смайлика в подсказке ------------------------------
+        if (hintEmoji) {
+            const frames = ['👇', '🖱️'];
+            let frame = 0;
+            setInterval(function () {
+                frame = (frame + 1) % frames.length;
+                hintEmoji.textContent = frames[frame];
+            }, 850);
+        }
+
+        // --- Клик по клетке --------------------------------------------
+        grid.addEventListener('click', function (e) {
+            const cell = e.target.closest('.mini-cell');
+            if (!cell || !grid.contains(cell)) return;
+
+            const r = Number(cell.dataset.row);
+            const c = Number(cell.dataset.col);
+            if (Number.isNaN(r) || Number.isNaN(c)) return;
+
+            grid.querySelectorAll('.picked-ok, .picked-bad').forEach(function (el) {
+                el.classList.remove('picked-ok', 'picked-bad');
+            });
+
+            const inside = r >= 0 && r < SIZE && c >= 0 && c < SIZE;
+            cell.classList.add(inside ? 'picked-ok' : 'picked-bad');
+
+            coordLabel.textContent = 'row = ' + r + ', col = ' + c;
+
+            verdict.innerHTML = inside
+                ? 'isInside(' + r + ', ' + c + ') → ' +
+                '<b style="color:var(--correct)">true - клетка внутри поля</b>'
+                : 'isInside(' + r + ', ' + c + ') → ' +
+                '<b style="color:var(--wrong)">false - клетка за границей поля</b>';
+        });
     })();
 </script>
 </body>
