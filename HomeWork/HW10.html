@@ -957,12 +957,18 @@
         }
 
         @keyframes visual-hint-bounce {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50%      { transform: translateY(-3px) rotate(-10deg); }
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-3px) rotate(-10deg);
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .visual-hint-emoji { animation: none; }
+            .visual-hint-emoji {
+                animation: none;
+            }
         }
 
         .section-chips {
@@ -1002,26 +1008,32 @@
             <span class="q-text">Что будет в задании</span>
         </div>
         <p class="q-hint" style="margin:0 0 8px 0;">Задание состоит из трёх основных разделов:</p>
-        <p></p><p></p>
+        <p></p>
+        <p></p>
         <p class="section-chips">
             <span>«Разбор алгоритма»</span>
         </p>
         <p class="q-hint" style="margin:0 0 8px 0;">
-            В разделе будет подробное объяснение двух методов класса <code>Board</code> (<b>isInside</b> и <b>countNeighbors</b>), которые заполняют поле нашего Сапёра числами.
+            В разделе будет подробное объяснение двух методов класса <code>Board</code> (<b>isInside</b> и <b>countNeighbors</b>),
+            которые заполняют поле нашего Сапёра числами.
         </p>
-        <p></p><p></p>
+        <p></p>
+        <p></p>
         <p class="section-chips">
             <span>«Как программа считает мины вокруг каждой клетки»</span>
         </p>
         <p class="q-hint" style="margin:0 0 8px 0;">
-            Интерактивная визуализация на поле 5 × 5 с 10 минами, где вы сможете посмотреть визуальное представление того, как работает алгоритм.
+            Интерактивная визуализация на поле 5 × 5 с 10 минами, где вы сможете посмотреть визуальное представление
+            того, как работает алгоритм.
         </p>
-        <p></p><p></p>
+        <p></p>
+        <p></p>
         <p class="section-chips">
             <span>«Основное задание»</span>
         </p>
         <p class="q-hint" style="margin:0 0 8px 0;">
-            В основном задании вам нужно будет собрать код описанных методов из готовых блоков: перетащить (на телефоне - нажать)
+            В основном задании вам нужно будет собрать код описанных методов из готовых блоков: перетащить (на телефоне
+            - нажать)
             фрагменты из «Набора блоков» в нужные слоты, расставив их в правильном порядке и с
             правильными отступами. Среди блоков есть лишние обманки. Кнопка «Проверить» подсветит
             верные слоты зелёным, а ошибки и пустые слоты - красным.
@@ -1332,36 +1344,37 @@ int nc = c + dc;</pre>
             <span class="q-num">i</span>
             <span class="q-text">Как программа считает мины вокруг каждой клетки</span>
         </div>
-            <p class="mine-demo-intro">
-                На поле 5 × 5 спрятано ровно 10 мин. Серые клетки вокруг поля - это область за его границами:
-                программа проверяет координаты соседей, но не обращается к таким клеткам.
-            </p>
-            <p class="mine-demo-intro">
-                Используйте кнопки «Следующий шаг» или «Автоматически», чтобы посмотреть, как алгоритм считает все клетки поля
-            </p>
-            <div class="visual-hint">
-                <span class="visual-hint-emoji" id="mineDemoHintEmoji" aria-hidden="true">👇</span>
-                <span>Это интерактивный пример - нажимайте кнопки под полем</span>
-            </div>
-            <div class="mine-demo-grid-wrap">
-                <div class="mine-demo-grid" id="mineDemoGrid"
-                     aria-label="Поле 5 на 5 с дополнительными клетками за границами"></div>
-            </div>
-            <div class="mine-demo-status" id="mineDemoStatus" aria-live="polite">
-                Начинаем с клетки в левом верхнем углу. Программа будет идти по строкам слева направо, сверху вниз.
-            </div>
-            <div class="mine-demo-controls">
-                <button type="button" id="mineDemoNext">Следующий шаг</button>
-                <button type="button" id="mineDemoAuto">Автоматически</button>
-                <button type="button" class="secondary" id="mineDemoReset">Сначала</button>
-            </div>
-            <div class="mine-demo-legend">
-                <span><i class="mine-demo-key mine"></i> мина</span>
-                <span><i class="mine-demo-key current"></i> клетка, для которой считаем</span>
-                <span><i class="mine-demo-key neighbor"></i> проверяемый сосед</span>
-                <span><i class="mine-demo-key done"></i> число уже записано</span>
-                <span><i class="mine-demo-key skipped"></i> пропускаем клетку</span>
-            </div>
+        <p class="mine-demo-intro">
+            На поле 5 × 5 спрятано ровно 10 мин. Серые клетки вокруг поля - это область за его границами:
+            программа проверяет координаты соседей, но не обращается к таким клеткам.
+        </p>
+        <p class="mine-demo-intro">
+            Используйте кнопки «Следующий шаг» или «Автоматически», чтобы посмотреть, как алгоритм считает все клетки
+            поля
+        </p>
+        <div class="visual-hint">
+            <span class="visual-hint-emoji" id="mineDemoHintEmoji" aria-hidden="true">👇</span>
+            <span>Это интерактивный пример - нажимайте кнопки под полем</span>
+        </div>
+        <div class="mine-demo-grid-wrap">
+            <div class="mine-demo-grid" id="mineDemoGrid"
+                 aria-label="Поле 5 на 5 с дополнительными клетками за границами"></div>
+        </div>
+        <div class="mine-demo-status" id="mineDemoStatus" aria-live="polite">
+            Начинаем с клетки в левом верхнем углу. Программа будет идти по строкам слева направо, сверху вниз.
+        </div>
+        <div class="mine-demo-controls">
+            <button type="button" id="mineDemoNext">Следующий шаг</button>
+            <button type="button" id="mineDemoAuto">Автоматически</button>
+            <button type="button" class="secondary" id="mineDemoReset">Сначала</button>
+        </div>
+        <div class="mine-demo-legend">
+            <span><i class="mine-demo-key mine"></i> мина</span>
+            <span><i class="mine-demo-key current"></i> клетка, для которой считаем</span>
+            <span><i class="mine-demo-key neighbor"></i> проверяемый сосед</span>
+            <span><i class="mine-demo-key done"></i> число уже записано</span>
+            <span><i class="mine-demo-key skipped"></i> пропускаем клетку</span>
+        </div>
     </div>
 
     <div class="card">
@@ -1370,7 +1383,8 @@ int nc = c + dc;</pre>
             <span class="q-text">Основное задание</span>
         </div>
         <p class="q-hint" style="margin:0 0 8px 0;">
-            В основном здании вам необходимо собрать по частям описанный алгоритм подсчета количества мин для каждой клетки. Для решения задачи у вас есть 2 поля: «Набор блоков» и «Код класса Board»
+            В основном здании вам необходимо собрать по частям описанный алгоритм подсчета количества мин для каждой
+            клетки. Для решения задачи у вас есть 2 поля: «Набор блоков» и «Код класса Board»
         </p>
         <p class="q-hint" style="margin:0 0 8px 0;">
             <b>«Набор блоков»</b> - это все фрагменты кода, из которых нужно собрать два метода:
@@ -1389,12 +1403,19 @@ int nc = c + dc;</pre>
         </p>
         <p class="q-hint" style="margin:0 0 8px 0;">
             <b>Полупрозрачные чёрточки <span style="font-family:monospace;opacity:.55;">|</span></b>
-            в начале строк показывают уровень вложенности - они позволят вам понять, какие части кода где располагаются относительно друг друга.
+            в начале строк показывают уровень вложенности - они позволят вам понять, какие части кода где располагаются
+            относительно друг друга.
         </p>
-        <p class="q-hint" style="margin:0;">
-            Для проверки решения используйте кнопку «Проверить»: правильно размещённые блоки станут зелёными, неправильные и
-            пустые слоты - красными. В наборе есть <b>лишние блоки-обманки</b> - их использовать не нужно.
+        <p class="q-hint" style="margin:0 0 8px 0;">
+            Для проверки решения используйте кнопку «Проверить»: правильно размещённые блоки станут зелёными,
+            неправильные и пустые слоты - красными. В наборе есть <b>лишние блоки-обманки</b> - их использовать не нужно.
         </p>
+        <div class="card">
+            <p class="q-hint" style="margin:0;">
+                Как только все блоки будут размещены верно, результат нужно сфотографировать и показать преподавателю (можно
+                попросить родителей) или принести фото с собой, если у вас есть собственный телефон
+            </p>
+        </div>
         <div class="legend">
             <span><i class="sw-ok"></i> блок на своём месте</span>
             <span><i class="sw-bad"></i> блок не на своём месте / пусто</span>
@@ -1522,11 +1543,11 @@ int nc = c + dc;</pre>
 
         /* Собираем HTML для панели статуса по единому шаблону */
         function buildStatusHTML(r, c, dr, dc, nr, nc, outOfBounds, isSelf, hasMine, minesCount) {
-            const red   = 'style="color:var(--wrong);font-weight:700"';
+            const red = 'style="color:var(--wrong);font-weight:700"';
             const green = 'style="color:var(--correct);font-weight:700"';
 
             const borderAnswer = outOfBounds
-                ? '<span ' + red   + '>Да - пропускаем</span>'
+                ? '<span ' + red + '>Да - пропускаем</span>'
                 : '<span ' + green + '>Нет</span>';
 
             let html =
@@ -1538,7 +1559,7 @@ int nc = c + dc;</pre>
             // Дальше имеем смысл только если сосед внутри поля
             if (!outOfBounds) {
                 const selfAnswer = isSelf
-                    ? '<span ' + red   + '>Да - пропускаем</span>'
+                    ? '<span ' + red + '>Да - пропускаем</span>'
                     : '<span ' + green + '>Нет</span>';
                 html += '<div>Сосед - это сама клетка? ' + selfAnswer + '</div>';
 
@@ -1546,7 +1567,7 @@ int nc = c + dc;</pre>
                 if (!isSelf) {
                     const mineAnswer = hasMine
                         ? '<span ' + green + '>Да - считаем</span>'
-                        : '<span ' + red   + '>Нет - не считаем</span>';
+                        : '<span ' + red + '>Нет - не считаем</span>';
                     html += '<div>В клетке есть мина? ' + mineAnswer + '</div>';
                 }
             }
@@ -1682,9 +1703,9 @@ int nc = c + dc;</pre>
                 const nr = row + dr, nc = col + dc;
 
                 const outOfBounds = (nr < 0 || nr >= SIZE || nc < 0 || nc >= SIZE);
-                const isSelf      = (dr === 0 && dc === 0);
+                const isSelf = (dr === 0 && dc === 0);
                 // Мину ищем только если координаты вообще существуют на поле
-                const hasMine     = !outOfBounds && mines.has(key(nr, nc));
+                const hasMine = !outOfBounds && mines.has(key(nr, nc));
 
                 if (!outOfBounds && !isSelf && hasMine) {
                     count++;
@@ -1996,10 +2017,10 @@ int nc = c + dc;</pre>
     })();
 
     (function initInsideExample() {
-        const grid       = document.getElementById('insideExampleGrid');
+        const grid = document.getElementById('insideExampleGrid');
         const coordLabel = document.getElementById('insideExampleCoord');
-        const verdict    = document.getElementById('insideExampleVerdict');
-        const hintEmoji  = document.getElementById('insideHintEmoji');
+        const verdict = document.getElementById('insideExampleVerdict');
+        const hintEmoji = document.getElementById('insideHintEmoji');
         if (!grid || !coordLabel || !verdict) return;
 
         const SIZE = 5;
